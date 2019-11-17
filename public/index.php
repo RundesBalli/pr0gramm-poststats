@@ -28,7 +28,7 @@ $loggedIn = 0;
  * Herausfinden welche Seite angefordert wurde
  */
 if(!isset($_GET['p']) OR empty($_GET['p'])) {
-  $getp = "start";
+  $getp = "stats";
 } else {
   preg_match("/([\d\w-]+)/i", $_GET['p'], $match);
   $getp = $match[1];
