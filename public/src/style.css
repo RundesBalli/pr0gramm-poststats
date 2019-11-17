@@ -70,6 +70,27 @@ a:active, a:hover, a:focus {
   color: #ee4d2e;
 }
 
+.warnbox {
+  background-color: rgba(197, 43, 47, 0.5); /* c52b2f, 50% opacity */
+  border-left: 5px solid #c52b2f;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.successbox {
+  background-color: rgba(91, 185, 28, 0.5); /* 5bb91c, 50% opacity */
+  border-left: 5px solid #5bb91c;
+  padding: 15px;
+  margin: 10px 0;
+}
+
+.infobox {
+  background-color: rgba(0, 143, 255, 0.5); /* 008fff, 50% opacity */
+  border-left: 5px solid #008fff;
+  padding: 15px;
+  margin: 10px 0;
+}
+
 .bold {
   font-weight: bold;
 }
@@ -260,6 +281,10 @@ https://fontawesome.com/
   border: 0;
 }
 
+.bordered {
+  border: 1px solid #212121;
+}
+
  /* Extra small devices (phones, 600px and down) */
 @media only screen and (max-width: 600px) {
   [class*="col-"] {
@@ -364,6 +389,10 @@ https://fontawesome.com/
   content: "";
   clear: both;
   display: table;
+}
+
+.row.hover:hover {
+  background-color: #212121;
 }
 
 .spacer-s {
