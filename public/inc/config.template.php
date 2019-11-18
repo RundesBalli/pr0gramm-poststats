@@ -20,12 +20,13 @@ $dbl = mysqli_connect($mysql_host, $mysql_user, $mysql_pass, $mysql_db) OR DIE(M
 mysqli_set_charset($dbl, "utf8") OR DIE(MYSQLI_ERROR($dbl));
 
 /**
- * Einbinden des apiCalls.
+ * Speicherort des apiCalls.
  * Download: https://github.com/RundesBalli/pr0gramm-apiCall
+ * Wird - sofern erforderlich - eingebunden.
  * 
  * Beispielwert: /home/user/apiCall/apiCall.php
  * 
- * @param string
+ * @var string
  */
-require_once("");
+$apiCall = "";
 ?>

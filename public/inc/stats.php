@@ -145,8 +145,9 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     $title = "Auswertung - Post-ID ".$postId;
 
     /**
-     * Abfragen der Tags und Kommentare bei der pr0gramm-API
+     * Einbinden des apiCalls (siehe Config) und Abfragen der Tags und Kommentare bei der pr0gramm-API
      */
+    require_once($apiCall);
     $response = apiCall("https://pr0gramm.com/api/items/info?itemId=$postId");
     $content.= "<h3>Tags nach Confidence</h3>".PHP_EOL;
     
