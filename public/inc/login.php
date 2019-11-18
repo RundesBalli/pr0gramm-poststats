@@ -56,7 +56,6 @@ if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['su
        */
       $sessionhash = hash('sha256', time().$_SERVER['REMOTE_ADDR'].rand(10000,99999));
       mysqli_query($dbl, "INSERT INTO `sessions` (`userid`, `hash`) VALUES ('".$row['id']."', '".$sessionhash."')") OR DIE(MYSQLI_ERROR($dbl));
-      mysqli_query($dbl, "UPDATE `accounts` SET `lastActivity`=NOW() WHERE `id`='".$row['id']."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
       setcookie('stats', $sessionhash, time()+(6*7*86400));
       header("Location: /stats");
       die();
