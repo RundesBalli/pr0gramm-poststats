@@ -1,3 +1,5 @@
+![Header](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/public/src/header-black.png)
+
 # pr0gramm-poststats
 :chart_with_upwards_trend: Ein Script zum Schnellauswerten eines Posts auf pr0gramm.com  
 :globe_with_meridians: https://poststats.rundesballi.com/ - für einen Account reicht eine [PN auf pr0gramm](https://pr0gramm.com/inbox/messages/RundesBalli)
