@@ -1,6 +1,6 @@
 <?php
 /**
- * stats.php
+ * pw.php
  * 
  * Statistikseite
  */
