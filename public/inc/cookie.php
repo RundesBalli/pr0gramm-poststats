@@ -14,7 +14,7 @@ if(isset($_COOKIE['stats']) AND !empty($_COOKIE['stats'])) {
     /**
      * Abfrage in der Datenbank, ob eine Sitzung mit diesem Hash existiert.
      */
-    $result = mysqli_query($dbl, "SELECT `accounts`.`username` FROM `sessions` JOIN `accounts` WHERE `hash`='".$match[0]."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
+    $result = mysqli_query($dbl, "SELECT `accounts`.`username` FROM `sessions` JOIN `accounts` ON `accounts`.`id`=`sessions`.`userid` WHERE `hash`='".$match[0]."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
     if(mysqli_num_rows($result) == 1) {
       /**
        * Wenn eine Sitzung existiert wird der letzte Nutzungszeitpunkt aktualisiert und der Username in die Variable $username geladen.
