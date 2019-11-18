@@ -22,6 +22,7 @@ if(isset($_COOKIE['stats']) AND !empty($_COOKIE['stats'])) {
       mysqli_query($dbl, "UPDATE `sessions` SET `lastActivity`=CURRENT_TIMESTAMP WHERE `hash`='".$match[0]."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
       setcookie('stats', $match[0], time()+(6*7*86400));
       $username = mysqli_fetch_array($result)['username'];
+      $loggedIn = 1;
     } else {
       /**
        * Wenn keine Sitzung mit dem übergebenen Hash existiert wird der User ausgeloggt.
