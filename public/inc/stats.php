@@ -261,14 +261,14 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>Anzahl Kommentare</div>".PHP_EOL.
     "</div>".PHP_EOL;
     $count = 0;
-    foreach($userCommentCount as $user => $count) {
+    foreach($userCommentCount as $user => $commentCount) {
       $count++;
       if($count > 15) {
         break;
       }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>".$count."</div>".PHP_EOL.
+      "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>".$commentCount."</div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
   } else {
