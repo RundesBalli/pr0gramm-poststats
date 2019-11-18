@@ -14,7 +14,7 @@ require_once('cookie.php');
  * Titel und Überschrift
  */
 $title = "Statistiken";
-$content.= "<h1>Post prüfen</h1>".PHP_EOL;
+$content.= "<h1>Übersicht</h1>".PHP_EOL;
 
 /**
  * Allgemeine Infos und Links
@@ -27,16 +27,17 @@ $content.= "<div class='row'>".PHP_EOL.
  * Bookmarklet
  */
 $content.= "<div class='row'>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12'>Bookmarklet: <a href=\"javascript:void(window.open('".$_SERVER['SERVER_NAME']."/stats?post='+encodeURIComponent(location.href)))\">Check Tags</a></div>".PHP_EOL.
+"<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12'>Bookmarklet: <a href=\"javascript:void(window.open('https://".$_SERVER['SERVER_NAME']."/stats?post='+encodeURIComponent(location.href)))\">Check Tags</a></div>".PHP_EOL.
 "</div>".PHP_EOL;
 
 /**
  * Formular zum Prüfen eines Posts
  */
+$content.= "<h1>Post prüfen</h1>".PHP_EOL;
 $content.= "<form action='/stats' method='post'>".PHP_EOL;
 $content.= "<div class='row'>".PHP_EOL.
 "<div class='col-x-12 col-s-12 col-m-4 col-l-3 col-xl-2'>Post</div>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-4 col-l-4 col-xl-4'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1'></div>".PHP_EOL.
+"<div class='col-x-12 col-s-12 col-m-4 col-l-4 col-xl-4'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".PHP_EOL.
 "<div class='col-x-12 col-s-12 col-m-4 col-l-5 col-xl-6'>Die Post-ID oder jeder pr0gramm-Link der eine Post-ID enthält kann hier übergeben werden.</div>".PHP_EOL.
 "</div>".PHP_EOL;
 $content.= "<div class='row'>".PHP_EOL.
@@ -165,20 +166,26 @@ if(isset($_POST['submit']) AND !empty($_POST['postId'])) {
     }
     $minusSortArray = $sortArray;
     arsort($sortArray);
-    arsort($minusSortArray);
+    asort($minusSortArray);
     arsort($userCommentScore);
     arsort($userCommentCount);
 
     /**
      * Anzeigen der beliebtesten Kommentare sortiert nach Benis absteigend
      */
+    $content.= "<div class='spacer-m'></div>".PHP_EOL;
     $content.= "<h3>Beliebteste Kommentare</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'>ID</div>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-7 col-xl-7'>Benis</div>".PHP_EOL.
     "</div>".PHP_EOL;
+    $count = 0;
     foreach($sortArray as $key => $score) {
+      $count++;
+      if($count > 15) {
+        break;
+      }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'><a href='https://pr0gramm.com/new/".$postId.":comment".$comments[$key]['id']."' rel='noopener' target='blank'>".$comments[$key]['id']."</a></div>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$comments[$key]['name']."' rel='noopener' target='blank'>".$comments[$key]['name']."</a></div>".PHP_EOL.

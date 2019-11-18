@@ -43,7 +43,7 @@ if(isset($argv[2]) AND preg_match('/^.{12,}$/', $argv[2], $match) === 1) {
 /**
  * Updaten des bestehenden Nutzers.
  */
- mysqli_query($dbl, "UPDATE `accounts` SET `password`='".$password."', `salt`='".$salt."' WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
+mysqli_query($dbl, "UPDATE `accounts` SET `password`='".$password."', `salt`='".$salt."' WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
 if(mysqli_affected_rows($dbl) == 1) {
   die("Passwort erfolgreich geändert.\n\n");
 } else {

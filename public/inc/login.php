@@ -14,8 +14,7 @@ if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['su
   /**
    * Cookiewarnung
    */
-  $content.= "<div class='infobot'>Ab diesem Punkt werden Cookies verwendet! Mit dem Fortfahren stimmst du dem zu!</div>".PHP_EOL.
-  "</div>".PHP_EOL;
+  $content.= "<div class='infobox'>Ab diesem Punkt werden Cookies verwendet! Mit dem Fortfahren stimmst du dem zu!</div>".PHP_EOL;
   /**
    * Loginformular
    */
