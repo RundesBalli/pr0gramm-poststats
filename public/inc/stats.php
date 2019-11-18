@@ -49,10 +49,26 @@ $content.= "</form>".PHP_EOL;
 /**
  * Postauswertung
  */
-if(isset($_POST['submit']) AND !empty($_POST['postId'])) {
+if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post']) AND !empty($_GET['post']))) {
   /**
+   * Abfangen ob das Formular übergeben wurde, oder ob ein Post per Bookmarklet übergeben wurde.
+   */
+  if(isset($_POST['submit']) AND !empty($_POST['postId'])) {
+    $post = trim($_POST['postId']);
+  } elseif(isset($_GET['post']) AND !empty($_GET['post'])) {
+    $post = trim($_GET['post']);
+  }
+
+  /**
+   * Matchen der PostId
+   * 
    * == Matcht: ==
    * 1234567
+   * 0123465 (matcht ohne führende 0)
+   * https://pr0gramm.com/new/012345 (matcht ohne führende 0)
+   * https://pr0gramm.com/top/012345 (matcht ohne führende 0)
+   * https://pr0gramm.com/new/012345:comment12345 (matcht ohne führende 0)
+   * https://pr0gramm.com/top/012345:comment12345 (matcht ohne führende 0)
    * https://pr0gramm.com/new/12345
    * https://pr0gramm.com/top/12345
    * https://pr0gramm.com/new/12345:comment12345
@@ -104,14 +120,9 @@ if(isset($_POST['submit']) AND !empty($_POST['postId'])) {
    * 
    * == Matcht nicht: ==
    * 0
-   * 0123465
    * https://pr0gramm.com/
    * https://pr0gramm.com/new
    * https://pr0gramm.com/top
-   * https://pr0gramm.com/new/012345
-   * https://pr0gramm.com/top/012345
-   * https://pr0gramm.com/new/012345:comment12345
-   * https://pr0gramm.com/top/012345:comment12345
    * https://pr0gramm.com/user
    * https://pr0gramm.com/user/asdf
    * https://pr0gramm.com/user/asdf/uploads
@@ -126,10 +137,13 @@ if(isset($_POST['submit']) AND !empty($_POST['postId'])) {
    * /user/asdf/likes
    * /stalk
    */
-  if(preg_match('/(^([1-9]\d*)$|(?:http(?:s?):\/\/pr0gramm\.com)?\/(?:top|new|user\/\w+\/(?:uploads|likes)|stalk)(?:(?:\/\w+)?)\/([1-9]\d*)(?:(?::)comment(?:\d+))?)/i', trim($_POST['postId']), $match) === 1) {
+  if(preg_match('/(?:(?:http(?:s?):\/\/pr0gramm\.com)?\/(?:top|new|user\/\w+\/(?:uploads|likes)|stalk)(?:(?:\/\w+)?)\/)?([1-9]\d*)(?:(?::comment(?:\d+))?)?/i', $post, $match) === 1) {
+    mysqli_query($dbl, "UPDATE `accounts` SET `requestCount` = `requestCount`+1 WHERE `username`='".$username."'") OR DIE(MYSQLI_ERROR($dbl));
     $postId = (int)defuse($match[1]);
     $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h1>Auswertung - Post-ID ".$postId;
+    $content.= "<h1>Auswertung - Post-ID ".$postId."</h1>".PHP_EOL;
+    $title = "Auswertung - Post-ID ".$postId;
+
     /**
      * Abfragen der Tags und Kommentare bei der pr0gramm-API
      */
