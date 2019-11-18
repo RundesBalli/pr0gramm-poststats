@@ -210,13 +210,19 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     /**
      * Anzeigen der unbeliebtesten Kommentare sortiert nach Benis absteigend
      */
+    $content.= "<div class='spacer-m'></div>".PHP_EOL;
     $content.= "<h3>Unbeliebteste Kommentare</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'>ID</div>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-7 col-xl-7'>Benis</div>".PHP_EOL.
     "</div>".PHP_EOL;
+    $count = 0;
     foreach($minusSortArray as $key => $score) {
+      $count++;
+      if($count > 15) {
+        break;
+      }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'><a href='https://pr0gramm.com/new/".$postId.":comment".$comments[$key]['id']."' rel='noopener' target='blank'>".$comments[$key]['id']."</a></div>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$comments[$key]['name']."' rel='noopener' target='blank'>".$comments[$key]['name']."</a></div>".PHP_EOL.
@@ -227,12 +233,18 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     /**
      * Anzeigen der User mit dem meisten Benis auf Kommentare unter dem Post
      */
-    $content.= "<h3>User mit dem meisten Benis auf Kommentare</h3>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>".PHP_EOL;
+    $content.= "<h3>User mit dem meisten Benis auf Kommentare (in Summe)</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>Benis</div>".PHP_EOL.
     "</div>".PHP_EOL;
+    $count = 0;
     foreach($userCommentScore as $user => $score) {
+      $count++;
+      if($count > 15) {
+        break;
+      }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></div>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>".$score."</div>".PHP_EOL.
@@ -242,18 +254,26 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     /**
      * Anzeigen der User mit den meisten Kommentaren unter dem Post
      */
+    $content.= "<div class='spacer-m'></div>".PHP_EOL;
     $content.= "<h3>User mit den meisten Kommentaren</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
     "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>Anzahl Kommentare</div>".PHP_EOL.
     "</div>".PHP_EOL;
+    $count = 0;
     foreach($userCommentCount as $user => $count) {
+      $count++;
+      if($count > 15) {
+        break;
+      }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></div>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>".$count."</div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
   } else {
+    $content.= "<div class='spacer-m'></div>".PHP_EOL;
+    $content.= "<h1>Fehler</h1>".PHP_EOL;
     $content.= "<div class='warnbox'>Keine Post-ID erkennbar</div>".PHP_EOL;
   }
 }
