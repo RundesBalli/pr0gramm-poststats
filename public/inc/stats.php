@@ -164,7 +164,7 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     "<div class='col-x-12 col-s-12 col-m-12 col-l-10 col-xl-10'>Tag</div>".PHP_EOL.
     "</div>".PHP_EOL;
     foreach($sortArray as $key => $confidence) {
-      $content.= "<div class='row'>".PHP_EOL.
+      $content.= "<div class='row hover bordered'>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2".($confidence < 0.2 ? " warn" : "")."'>".$confidence."</div>".PHP_EOL.
       "<div class='col-x-12 col-s-12 col-m-12 col-l-10 col-xl-10'>".$tags[$key]['tag']."</div>".PHP_EOL.
       "</div>".PHP_EOL;
