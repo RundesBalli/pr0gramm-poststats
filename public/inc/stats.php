@@ -169,6 +169,11 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
       "<div class='col-x-12 col-s-12 col-m-12 col-l-10 col-xl-10'>".$tags[$key]['tag']."</div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
+    
+    /**
+     * Leeren der sortArray Variable.
+     */
+    unset($sortArray);
 
     /**
      * Auswertung der Kommentare
