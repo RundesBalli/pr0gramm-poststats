@@ -35,14 +35,15 @@ $content.= "<div class='row'>".PHP_EOL.
  */
 $content.= "<h1>Post prüfen</h1>".PHP_EOL;
 $content.= "<form action='/stats' method='post'>".PHP_EOL;
-$content.= "<div class='row'>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-4 col-l-3 col-xl-2'>Post</div>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-4 col-l-4 col-xl-4'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-4 col-l-5 col-xl-6'>Die Post-ID oder jeder pr0gramm-Link der eine Post-ID enthält kann hier übergeben werden.</div>".PHP_EOL.
+$content.= "<div class='row hover bordered'>".PHP_EOL.
+"<div class='col-x-3 col-s-3 col-m-2 col-l-2 col-xl-2'>Post</div>".PHP_EOL.
+"<div class='col-x-9 col-s-9 col-m-6 col-l-6 col-xl-6'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".PHP_EOL.
+"<div class='col-x-12 col-s-12 col-m-4 col-l-4 col-xl-4'>Die Post-ID oder jeder pr0gramm-Link der eine Post-ID enthält kann hier übergeben werden.</div>".PHP_EOL.
+"<div class='col-x-12 col-s-12 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
 "</div>".PHP_EOL;
-$content.= "<div class='row'>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-4 col-l-3 col-xl-2'>Prüfen</div>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-4 col-l-4 col-xl-4'><input type='submit' name='submit' value='Prüfen' tabindex='2'></div>".PHP_EOL.
+$content.= "<div class='row hover bordered'>".PHP_EOL.
+"<div class='col-x-3 col-s-3 col-m-2 col-l-2 col-xl-2'>Prüfen</div>".PHP_EOL.
+"<div class='col-x-9 col-s-9 col-m-10 col-l-10 col-xl-10'><input type='submit' name='submit' value='Prüfen' tabindex='2'></div>".PHP_EOL.
 "</div>".PHP_EOL;
 $content.= "</form>".PHP_EOL;
 
@@ -160,13 +161,13 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
     arsort($sortArray);
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'>Confidence</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-10 col-xl-10'>Tag</div>".PHP_EOL.
+    "<div class='col-x-4 col-s-4 col-m-3 col-l-2 col-xl-2'>Confidence</div>".PHP_EOL.
+    "<div class='col-x-8 col-s-8 col-m-9 col-l-10 col-xl-10'>Tag</div>".PHP_EOL.
     "</div>".PHP_EOL;
     foreach($sortArray as $key => $confidence) {
       $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2".($confidence < 0.2 ? " warn" : "")."'>".$confidence."</div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-10 col-xl-10'>".$tags[$key]['tag']."</div>".PHP_EOL.
+      "<div class='col-x-4 col-s-4 col-m-3 col-l-2 col-xl-2".($confidence < 0.2 ? " warn" : "")."'>".$confidence."</div>".PHP_EOL.
+      "<div class='col-x-8 col-s-8 col-m-9 col-l-10 col-xl-10'>".$tags[$key]['tag']."</div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
     
@@ -196,9 +197,9 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     $content.= "<div class='spacer-m'></div>".PHP_EOL;
     $content.= "<h3>Beliebteste Kommentare</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'>ID</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-7 col-xl-7'>Benis</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>ID</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>Benis</div>".PHP_EOL.
+    "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'>User</div>".PHP_EOL.
     "</div>".PHP_EOL;
     $count = 0;
     foreach($sortArray as $key => $score) {
@@ -207,9 +208,10 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
         break;
       }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'><a href='https://pr0gramm.com/new/".$postId.":comment".$comments[$key]['id']."' rel='noopener' target='blank'>".$comments[$key]['id']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$comments[$key]['name']."' rel='noopener' target='blank'>".$comments[$key]['name']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-7 col-xl-7'>".$score."</div>".PHP_EOL.
+      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$comments[$key]['id']."' rel='noopener' target='blank'>".$comments[$key]['id']."</a></div>".PHP_EOL.
+      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>".$score."</div>".PHP_EOL.
+      "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'><a href='https://pr0gramm.com/user/".$comments[$key]['name']."' rel='noopener' target='blank'>".$comments[$key]['name']."</a></div>".PHP_EOL.
+      "<div class='col-x-12 col-s-0 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
 
@@ -219,9 +221,9 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     $content.= "<div class='spacer-m'></div>".PHP_EOL;
     $content.= "<h3>Unbeliebteste Kommentare</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'>ID</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-7 col-xl-7'>Benis</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>ID</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>Benis</div>".PHP_EOL.
+    "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'>User</div>".PHP_EOL.
     "</div>".PHP_EOL;
     $count = 0;
     foreach($minusSortArray as $key => $score) {
@@ -230,9 +232,10 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
         break;
       }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-2 col-xl-2'><a href='https://pr0gramm.com/new/".$postId.":comment".$comments[$key]['id']."' rel='noopener' target='blank'>".$comments[$key]['id']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$comments[$key]['name']."' rel='noopener' target='blank'>".$comments[$key]['name']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-7 col-xl-7'>".$score."</div>".PHP_EOL.
+      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$comments[$key]['id']."' rel='noopener' target='blank'>".$comments[$key]['id']."</a></div>".PHP_EOL.
+      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>".$score."</div>".PHP_EOL.
+      "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'><a href='https://pr0gramm.com/user/".$comments[$key]['name']."' rel='noopener' target='blank'>".$comments[$key]['name']."</a></div>".PHP_EOL.
+      "<div class='col-x-12 col-s-0 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
 
@@ -242,8 +245,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     $content.= "<div class='spacer-m'></div>".PHP_EOL;
     $content.= "<h3>User mit dem meisten Benis auf Kommentare (in Summe)</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>Benis</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'>User</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>Benis</div>".PHP_EOL.
     "</div>".PHP_EOL;
     $count = 0;
     foreach($userCommentScore as $user => $score) {
@@ -252,8 +255,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
         break;
       }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>".$score."</div>".PHP_EOL.
+      "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></div>".PHP_EOL.
+      "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>".$score."</div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
 
@@ -263,8 +266,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     $content.= "<div class='spacer-m'></div>".PHP_EOL;
     $content.= "<h3>User mit den meisten Kommentaren</h3>".PHP_EOL;
     $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'>User</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>Anzahl Kommentare</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'>User</div>".PHP_EOL.
+    "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>Anzahl Kommentare</div>".PHP_EOL.
     "</div>".PHP_EOL;
     $count = 0;
     foreach($userCommentCount as $user => $commentCount) {
@@ -273,8 +276,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
         break;
       }
       $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-12 col-m-12 col-l-9 col-xl-9'>".$commentCount."</div>".PHP_EOL.
+      "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></div>".PHP_EOL.
+      "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>".$commentCount."</div>".PHP_EOL.
       "</div>".PHP_EOL;
     }
   } else {
