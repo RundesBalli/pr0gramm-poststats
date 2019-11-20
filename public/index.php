@@ -22,7 +22,7 @@ require_once(__DIR__.DIRECTORY_SEPARATOR."inc".DIRECTORY_SEPARATOR."functions.ph
  */
 $content = "";
 $title = "";
-$loggedIn = 0;
+$loginNav = 0;
 
 /**
  * Herausfinden welche Seite angefordert wurde
@@ -60,7 +60,7 @@ if(isset($pageArray[$getp])) {
 /**
  * Navigation
  */
-if($loggedIn == 1) {
+if($loginNav == 1) {
   $navItems = array(
     'stats' => 'Statistiken',
     'pw' => 'Passwort ändern',
