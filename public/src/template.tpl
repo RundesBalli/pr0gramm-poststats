@@ -20,7 +20,7 @@ https://github.com/RundesBalli/pr0gramm-poststats
   </head>
   <body>
     <div id="header">
-      <img src="/src/header.png" alt="Header">
+      <a href="/"><img src="/src/header.png" alt="Header"></a>
     </div>
     <div id="nav" class="nav">
       <a class="icon" id="toggle">&#x2630;</a>{NAV}
