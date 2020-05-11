@@ -29,6 +29,25 @@ CREATE TABLE `accounts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Account Tabelle';
 
 
+DROP TABLE IF EXISTS `comments`;
+CREATE TABLE `comments` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Laufende ID',
+  `postId` int(10) unsigned NOT NULL COMMENT 'Post-ID (pr0gramm)',
+  `commentId` int(10) unsigned NOT NULL COMMENT 'Comment-ID (pr0gramm)',
+  `score` int(10) NOT NULL COMMENT 'Benis',
+  `up` int(10) unsigned NOT NULL COMMENT 'Plus',
+  `down` int(10) unsigned NOT NULL COMMENT 'Minus',
+  `username` varchar(32) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Username (pr0gramm)',
+  PRIMARY KEY (`id`),
+  KEY `postId` (`postId`),
+  KEY `commentId` (`commentId`),
+  KEY `score` (`score`),
+  KEY `plus` (`up`),
+  KEY `minus` (`down`),
+  KEY `username` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Kommentartabelle';
+
+
 DROP TABLE IF EXISTS `sessions`;
 CREATE TABLE `sessions` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Laufende ID',
@@ -43,4 +62,16 @@ CREATE TABLE `sessions` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 
--- 2019-11-18 00:14:30
+DROP TABLE IF EXISTS `tags`;
+CREATE TABLE `tags` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Laufende ID',
+  `postId` int(10) unsigned NOT NULL COMMENT 'Post-ID (pr0gramm)',
+  `tag` varchar(64) COLLATE utf8mb4_unicode_ci NOT NULL COMMENT 'Tag',
+  `confidence` double(7,6) NOT NULL COMMENT 'Confidence',
+  PRIMARY KEY (`id`),
+  KEY `postId` (`postId`),
+  KEY `confidence` (`confidence`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci COMMENT='Tag Tabelle';
+
+
+-- 2020-05-11 17:08:17
