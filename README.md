@@ -20,14 +20,20 @@
 ### Tags nach Confidence mit rausgevoteten Tags
 ![Tags nach Confidence mit rausgevoteten Tags](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/3.png)
 
-### Beliebteste Kommentare
-![Beliebteste Kommentare](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/4.png)
+### Beliebteste Kommentare, sortiert nach Gesamtbenis
+![Beliebteste Kommentare, sortiert nach Gesamtbenis](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/4.png)
 
-### Unbeliebteste Kommentare
-![Unbeliebteste Kommentare](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/5.png)
+### Unbeliebteste Kommentare, sortiert nach Gesamtbenis
+![Unbeliebteste Kommentare, sortiert nach Gesamtbenis](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/5.png)
+
+### Kommentare mit dem meisten Plus / Minus
+![Kommentare mit dem meisten Plus / Minus](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/8.png)
 
 ### User mit dem meisten Score auf Kommentare (in Summe)
 ![User mit dem meisten Score auf Kommentare (in Summe)](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/6.png)
+
+### User mit dem wenigsten Score auf Kommentare (in Summe)
+![User mit dem wenigsten Score auf Kommentare (in Summe)](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/9.png)
 
 ### User mit den meisten Kommentaren
 ![User mit den meisten Kommentaren](https://raw.githubusercontent.com/RundesBalli/pr0gramm-poststats/master/Screenshots/7.png)
