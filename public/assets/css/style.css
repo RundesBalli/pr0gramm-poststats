@@ -161,14 +161,15 @@ h3 {
   height: calc(var(--fontSize) * 3);
 }
 
-/*
-  2. Header
-*/
-
+/**
+ * 2. Header
+ */
 #header {
   flex: none;
   text-align: center;
-  margin: 15px auto 10px;
+  margin: var(--fontSize) auto 0px;
+}
+
 }
 
 #header .info {
