@@ -5,7 +5,7 @@ https://github.com/RundesBalli/pr0gramm-poststats
 <!DOCTYPE html>
 <html lang="de">
   <head>
-    <title>pr0gramm Poststats{TITLE}</title>
+    <title>{TITLE}pr0gramm Poststats</title>
     <meta charset="utf-8">
     <meta name="description" content="pr0gramm Poststats"/>
     <meta name="robots" content="noindex, nofollow"/>
@@ -28,7 +28,7 @@ https://github.com/RundesBalli/pr0gramm-poststats
       {CONTENT}
     </div>
     <div id="footer">
-      <a href="https://RundesBalli.com" target="_blank" rel="noopener">RundesBalli</a> - <a href="https://github.com/RundesBalli/pr0gramm-poststats" target="_blank" rel="noopener"><span class="fab">&#xf09b;</span>&nbsp;Github</a>
+      {FOOTER}
     </div>
     <script type="text/javascript" src="/assets/js/toggleMenu.js"></script>
   </body>
