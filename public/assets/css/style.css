@@ -1,29 +1,48 @@
-/*
-CSS stylesheet for pr0gramm-poststats
-
-https://RundesBalli.com/
-https://github.com/
-
-Sources:
-- Colors: https://holzmaster.github.io/userscripts/eckdaten/
-- CSS Responsive: https://www.w3schools.com/css/css_rwd_intro.asp
-- CSS Responsive Nav: https://www.w3schools.com/howto/howto_js_topnav_responsive.asp
-- CSS Nav Sticky: https://www.w3schools.com/howto/howto_js_navbar_sticky.asp
-- CSS Responsive Forms: https://www.w3schools.com/css/css_form.asp
-- Font-Awesome Free: https://fontawesome.com/start
-
-Contents:
-1. General
-2. Header
-3. Navigation
-4. Footer
-5. Grid
-6. Forms
+/**
+ * CSS stylesheet for pr0gramm-poststats
+ *
+ * https://RundesBalli.com/
+ * https://github.com/RundesBalli/pr0gramm-poststats
+ * 
+ * Contents:
+ * 1. General
+ * 2. Header
+ * 3. Footer
+ * 4. Content
+ * 5. Responsive grid
+ * 6. Forms
 */
 
-/*
-  1. General
-*/
+/**
+ * 1. General
+ */
+
+:root {
+  --bgColor: #161618;
+  --fontSize: 16px;
+  --fontColor: #f2f5f4;
+  --linkColor: #75c0c7;
+  --activeNavColor: #ee4d2e;
+  --linkHover: #f2f5f4;
+  --hrColor: rgba(255, 255, 255, 0.1);
+  --transitionTime: 0.4s;
+  --shadowColor: #000000;
+  --highlightFontColor: #ee4d2e;
+  --warnFontColor: #c52b2f;
+  --darkFontColor: #444444;
+}
+
+@media only screen and (max-width: 600px) {
+  :root {
+    --fontSize: 14px;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  outline: 0;
+}
+
 @font-face {
   font-family: 'Roboto';
   font-style: normal;
@@ -32,25 +51,25 @@ Contents:
   src: url("/assets/fonts/Roboto-Regular.ttf");
 }
 
-
-html, body {
-  padding: 0px;
-  margin: 0px;
-  background: #161618;
+html {
   width: 100%;
   height: 100%;
-  font-family: sans-serif;
-  font-size: 14px;
-  color: #f2f5f4;
+  padding: 0px;
+  margin: 0px;
 }
 
 body {
+  width: 100%;
+  min-height: 100%;
+  padding: 0px 40px;
+  margin: 0px;
+  background: var(--bgColor);
+  font-family: 'Roboto', sans-serif;
+  color: var(--fontColor);
+  font-size: var(--fontSize);
   display: flex;
-  flex-flow: column;
-}
-
-* {
-  box-sizing: border-box;
+  flex-direction: column;
+  text-shadow: 1px 1px 1px var(--shadowColor);
 }
 
 img {
@@ -59,27 +78,27 @@ img {
 }
 
 a {
-  outline: none;
-  color: #75c0c7;
+  color: var(--linkColor);
   text-decoration: none;
   cursor: pointer;
+  transition: all var(--transitionTime);
 }
 
 a:active, a:hover, a:focus {
-  color: #f2f5f4;
+  color: var(--linkHover);
   text-decoration: underline;
 }
 
 .warn {
-  color: #c52b2f;
+  color: var(--warnFontColor);
 }
 
 .highlight {
-  color: #ee4d2e;
+  color: var(--highlightFontColor);
 }
 
 .darken {
-  color: #444444;
+  color: var(--darkFontColor);
 }
 
 .warnbox {
@@ -103,6 +122,25 @@ a:active, a:hover, a:focus {
   margin: 10px 0;
 }
 
+h1, h2, h3 {
+  word-break: break-word;
+}
+
+h1 {
+  font-size: calc(var(--fontSize) * 3);
+  margin: calc(var(--fontSize) * 2.5) 0 calc(var(--fontSize) * 1.7);
+}
+
+h2 {
+  font-size: calc(var(--fontSize) * 2.2);
+  margin: calc(var(--fontSize) * 2) 0 calc(var(--fontSize) * 1.2);
+}
+
+h3 {
+  font-size: calc(var(--fontSize) * 1.5);
+  margin: calc(var(--fontSize) * 1.2) 0 calc(var(--fontSize) * 0.5);
+}
+
 .bold {
   font-weight: bold;
 }
@@ -111,40 +149,16 @@ a:active, a:hover, a:focus {
   font-style: italic;
 }
 
-.underline {
-  text-decoration: underline;
-}
-
-.center {
-  text-align: center;
-}
-
-.left {
-  float: left;
-}
-
-.right {
-  float: right;
-}
-
-.clear {
-  clear: both;
-}
-
-.bigger {
-  font-size: 22px;
-}
-
 .spacer-s {
-  height: 15px;
+  height: calc(var(--fontSize) * 1);
 }
 
 .spacer-m {
-  height: 30px;
+  height: calc(var(--fontSize) * 2);
 }
 
 .spacer-l {
-  height: 50px;
+  height: calc(var(--fontSize) * 3);
 }
 
 /*
