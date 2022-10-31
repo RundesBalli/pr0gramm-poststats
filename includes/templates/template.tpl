@@ -13,7 +13,6 @@ https://github.com/RundesBalli/pr0gramm-poststats
     <meta name="author" content="RundesBalli"/>
     <meta name="revisit-after" content="2 weeks"/>
     <link href="/assets/css/style.css" rel="stylesheet">
-    <script type="text/javascript" src="/assets/js/toggleMenu.js"></script>
     <link rel="shortcut icon" href="/assets/images/favicon.png" type="image/png">
     <meta name="theme-color" content="#161618">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -22,8 +21,8 @@ https://github.com/RundesBalli/pr0gramm-poststats
     <div id="header">
       <a href="/"><img src="/assets/images/header.png" alt="Header"></a>
     </div>
-    <div id="nav" class="nav">
-      <a class="icon" id="toggle">&#x2630;</a>{NAV}
+    <div id="navbar" id="navbar">
+      {NAV}
     </div>
     <div id="wrapper">
       {CONTENT}
@@ -31,5 +30,6 @@ https://github.com/RundesBalli/pr0gramm-poststats
     <div id="footer">
       <a href="https://RundesBalli.com" target="_blank" rel="noopener">RundesBalli</a> - <a href="https://github.com/RundesBalli/pr0gramm-poststats" target="_blank" rel="noopener"><span class="fab">&#xf09b;</span>&nbsp;Github</a>
     </div>
+    <script type="text/javascript" src="/assets/js/toggleMenu.js"></script>
   </body>
 </html>
