@@ -14,38 +14,38 @@ require_once('cookie.php');
  * Titel und Überschrift
  */
 $title = "Statistiken";
-$content.= "<h1>Übersicht</h1>".PHP_EOL;
+$content.= "<h1>Übersicht</h1>";
 
 /**
  * Allgemeine Infos und Links
  */
-$content.= "<div class='row'>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12'>Eingeloggt als: <span class='warn bold'>".$username."</span></div>".PHP_EOL.
-"</div>".PHP_EOL;
+$content.= "<div class='row'>".
+"<div class='col-s-12 col-l-12'>Eingeloggt als: <span class='warn bold'>".$username."</span></div>".
+"</div>";
 
 /**
  * Bookmarklet
  */
-$content.= "<div class='row'>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-12 col-l-12 col-xl-12'>Bookmarklet: <a href=\"javascript:void(window.open('https://".$_SERVER['SERVER_NAME']."/stats?post='+encodeURIComponent(location.href)))\">Check Post</a></div>".PHP_EOL.
-"</div>".PHP_EOL;
+$content.= "<div class='row'>".
+"<div class='col-s-12 col-l-12'>Bookmarklet: <a href=\"javascript:void(window.open('https://".$_SERVER['SERVER_NAME']."/stats?post='+encodeURIComponent(location.href)))\">Check Post</a></div>".
+"</div>";
 
 /**
  * Formular zum Prüfen eines Posts
  */
-$content.= "<h1>Post prüfen</h1>".PHP_EOL;
-$content.= "<form action='/stats' method='post'>".PHP_EOL;
-$content.= "<div class='row hover bordered'>".PHP_EOL.
-"<div class='col-x-3 col-s-3 col-m-2 col-l-2 col-xl-2'>Post</div>".PHP_EOL.
-"<div class='col-x-9 col-s-9 col-m-6 col-l-6 col-xl-6'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-4 col-l-4 col-xl-4'>Die Post-ID oder jeder pr0gramm-Link der eine Post-ID enthält kann hier übergeben werden.</div>".PHP_EOL.
-"<div class='col-x-12 col-s-12 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
-"</div>".PHP_EOL;
-$content.= "<div class='row hover bordered'>".PHP_EOL.
-"<div class='col-x-3 col-s-3 col-m-2 col-l-2 col-xl-2'>Prüfen</div>".PHP_EOL.
-"<div class='col-x-9 col-s-9 col-m-10 col-l-10 col-xl-10'><input type='submit' name='submit' value='Prüfen' tabindex='2'></div>".PHP_EOL.
-"</div>".PHP_EOL;
-$content.= "</form>".PHP_EOL;
+$content.= "<h1>Post prüfen</h1>";
+$content.= "<form action='/stats' method='post'>";
+$content.= "<div class='row hover bordered'>".
+"<div class='col-s-3 col-l-2'>Post</div>".
+"<div class='col-s-9 col-l-6'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".
+"<div class='col-s-12 col-l-4'>Die Post-ID oder jeder pr0gramm-Link der eine Post-ID enthält kann hier übergeben werden.</div>".
+"<div class='col-s-12 col-l-0'><div class='spacer-s'></div></div>".
+"</div>";
+$content.= "<div class='row hover bordered'>".
+"<div class='col-s-3 col-l-2'>Prüfen</div>".
+"<div class='col-s-9 col-l-10'><input type='submit' name='submit' value='Prüfen' tabindex='2'></div>".
+"</div>";
+$content.= "</form>";
 
 /**
  * Postauswertung
@@ -141,8 +141,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
   if(preg_match('/(?:(?:http(?:s?):\/\/pr0gramm\.com)?\/(?:top|new|user\/\w+\/(?:uploads|likes)|stalk)(?:(?:\/\w+)?)\/)?([1-9]\d*)(?:(?::comment(?:\d+))?)?/i', $post, $match) === 1) {
     mysqli_query($dbl, "UPDATE `accounts` SET `requestCount` = `requestCount`+1 WHERE `username`='".$username."'") OR DIE(MYSQLI_ERROR($dbl));
     $postId = (int)defuse($match[1]);
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h1>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a></h1>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h1>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a></h1>";
     $title = "Auswertung - Post-ID ".$postId;
 
     /**
@@ -174,153 +174,153 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     /**
      * Tags nach Confidence
      */
-    $content.= "<h3>Tags nach Confidence</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-4 col-s-4 col-m-3 col-l-2 col-xl-2'>Confidence</div>".PHP_EOL.
-    "<div class='col-x-8 col-s-8 col-m-9 col-l-10 col-xl-10'>Tag</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<h3>Tags nach Confidence</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-4 col-l-2'>Confidence</div>".
+    "<div class='col-s-8 col-l-10'>Tag</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `tags` WHERE `postId`='".$postId."' ORDER BY `confidence` DESC") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-4 col-s-4 col-m-3 col-l-2 col-xl-2".($row['confidence'] < 0.2 ? " warn" : "")."'>".$row['confidence']."</div>".PHP_EOL.
-      "<div class='col-x-8 col-s-8 col-m-9 col-l-10 col-xl-10'>".$row['tag']."</div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-4 col-l-2".($row['confidence'] < 0.2 ? " warn" : "")."'>".$row['confidence']."</div>".
+      "<div class='col-s-8 col-l-10'>".$row['tag']."</div>".
+      "</div>";
     }
 
     /**
      * Anzeigen der beliebtesten Kommentare sortiert nach Benis absteigend
      */
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h3>Beliebteste Kommentare, sortiert nach Gesamtbenis</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>ID</div>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>Benis</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'>User</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h3>Beliebteste Kommentare, sortiert nach Gesamtbenis</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-3 col-l-3'>ID</div>".
+    "<div class='col-s-3 col-l-3'>Benis</div>".
+    "<div class='col-s-6 col-l-6'>User</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `score` DESC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-0 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
+      "</div>";
     }
 
     /**
      * Anzeigen der unbeliebtesten Kommentare sortiert nach Benis aufsteigend
      */
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h3>Unbeliebteste Kommentare, sortiert nach Gesamtbenis</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>ID</div>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>Benis</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'>User</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h3>Unbeliebteste Kommentare, sortiert nach Gesamtbenis</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-3 col-l-3'>ID</div>".
+    "<div class='col-s-3 col-l-3'>Benis</div>".
+    "<div class='col-s-6 col-l-6'>User</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `score` ASC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-0 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
+      "</div>";
     }
 
     /**
      * Anzeigen der Kommentare mit dem meisten Plus
      */
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h3>Kommentare mit dem meisten Plus</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>ID</div>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>Benis</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'>User</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h3>Kommentare mit dem meisten Plus</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-3 col-l-3'>ID</div>".
+    "<div class='col-s-3 col-l-3'>Benis</div>".
+    "<div class='col-s-6 col-l-6'>User</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `up` DESC LIMIT 5") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-0 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
+      "</div>";
     }
 
     /**
      * Anzeigen der Kommentare mit dem meisten Minus
      */
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h3>Kommentare mit dem meisten Minus</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>ID</div>".PHP_EOL.
-    "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>Benis</div>".PHP_EOL.
-    "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'>User</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h3>Kommentare mit dem meisten Minus</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-3 col-l-3'>ID</div>".
+    "<div class='col-s-3 col-l-3'>Benis</div>".
+    "<div class='col-s-6 col-l-6'>User</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `down` DESC LIMIT 5") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".PHP_EOL.
-      "<div class='col-x-6 col-s-3 col-m-3 col-l-3 col-xl-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-6 col-m-6 col-l-6 col-xl-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".PHP_EOL.
-      "<div class='col-x-12 col-s-0 col-m-0 col-l-0 col-xl-0'><div class='spacer-s'></div></div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
+      "</div>";
     }
 
     /**
      * Anzeigen der User mit dem meisten Benis auf Kommentare unter dem Post
      */
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h3>User mit dem meisten Benis auf Kommentare (in Summe)</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'>User</div>".PHP_EOL.
-    "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>Benis</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h3>User mit dem meisten Benis auf Kommentare (in Summe)</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-6 col-l-3'>User</div>".
+    "<div class='col-s-6 col-l-9'>Benis</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT sum(`score`) AS `totalBenis`, sum(`up`) AS `totalUp`, sum(`down`) AS `totalDown`, `username` FROM `comments` WHERE `postId`='".$postId."' GROUP BY `username` ORDER BY `totalBenis` DESC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".PHP_EOL.
-      "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-6 col-l-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-6 col-l-9'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".
+      "</div>";
     }
 
     /**
      * Anzeigen der User mit dem wenigsten Benis auf Kommentare unter dem Post
      */
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h3>User mit dem wenigsten Benis auf Kommentare (in Summe)</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'>User</div>".PHP_EOL.
-    "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>Benis</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h3>User mit dem wenigsten Benis auf Kommentare (in Summe)</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-6 col-l-3'>User</div>".
+    "<div class='col-s-6 col-l-9'>Benis</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT sum(`score`) AS `totalBenis`, sum(`up`) AS `totalUp`, sum(`down`) AS `totalDown`, `username` FROM `comments` WHERE `postId`='".$postId."' GROUP BY `username` ORDER BY `totalBenis` ASC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".PHP_EOL.
-      "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-6 col-l-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-6 col-l-9'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".
+      "</div>";
     }
 
     /**
      * Anzeigen der User mit den meisten Kommentaren (Anzahl)
      */
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h3>User mit den meisten Kommentaren (Anzahl)</h3>".PHP_EOL;
-    $content.= "<div class='row highlight bold bordered'>".PHP_EOL.
-    "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'>User</div>".PHP_EOL.
-    "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>Anzahl Kommentare</div>".PHP_EOL.
-    "</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h3>User mit den meisten Kommentaren (Anzahl)</h3>";
+    $content.= "<div class='row highlight bold bordered'>".
+    "<div class='col-s-6 col-l-3'>User</div>".
+    "<div class='col-s-6 col-l-9'>Anzahl Kommentare</div>".
+    "</div>";
     $result = mysqli_query($dbl, "SELECT count(`username`) AS `totalCount`, `username` FROM `comments` WHERE `postId`='".$postId."' GROUP BY `username` ORDER BY `totalCount` DESC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".PHP_EOL.
-      "<div class='col-x-6 col-s-6 col-m-4 col-l-3 col-xl-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".PHP_EOL.
-      "<div class='col-x-6 col-s-6 col-m-8 col-l-9 col-xl-9'>".$row['totalCount']."</div>".PHP_EOL.
-      "</div>".PHP_EOL;
+      $content.= "<div class='row hover bordered'>".
+      "<div class='col-s-6 col-l-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-6 col-l-9'>".$row['totalCount']."</div>".
+      "</div>";
     }
   } else {
-    $content.= "<div class='spacer-m'></div>".PHP_EOL;
-    $content.= "<h1>Fehler</h1>".PHP_EOL;
-    $content.= "<div class='warnbox'>Keine Post-ID erkennbar</div>".PHP_EOL;
+    $content.= "<div class='spacer-m'></div>";
+    $content.= "<h1>Fehler</h1>";
+    $content.= "<div class='warnbox'>Keine Post-ID erkennbar</div>";
   }
 }
 ?>
