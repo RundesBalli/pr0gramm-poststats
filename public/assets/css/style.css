@@ -127,46 +127,16 @@ a:active, a:hover, a:focus {
   font-size: 22px;
 }
 
-/*
-1.1 Fontawesome
-https://fontawesome.com/
-*/
-
-@font-face {
-  font-family: 'fontawesome-r';
-  font-style: normal;
-  font-weight: 400;
-  src: url("/src/webfonts/fa-regular-400.eot");
-  src: url("/src/webfonts/fa-regular-400.eot?#iefix") format("embedded-opentype"), url("/src/webfonts/fa-regular-400.woff2") format("woff2"), url("/src/webfonts/fa-regular-400.woff") format("woff"), url("/src/webfonts/fa-regular-400.ttf") format("truetype"), url("/src/webfonts/fa-regular-400.svg#fontawesome") format("svg");
+.spacer-s {
+  height: 15px;
 }
 
-.far {
-  font-family: 'fontawesome-r';
-  font-weight: 400;
+.spacer-m {
+  height: 30px;
 }
 
-@font-face {
-  font-family: 'fontawesome-s';
-  font-style: normal;
-  font-weight: 900;
-  src: url("/src/webfonts/fa-solid-900.eot");
-  src: url("/src/webfonts/fa-solid-900.eot?#iefix") format("embedded-opentype"), url("/src/webfonts/fa-solid-900.woff2") format("woff2"), url("/src/webfonts/fa-solid-900.woff") format("woff"), url("/src/webfonts/fa-solid-900.ttf") format("truetype"), url("/src/webfonts/fa-solid-900.svg#fontawesome") format("svg");
-}
-
-.fas {
-  font-family: 'fontawesome-s';
-  font-weight: 900;
-}
-
-@font-face {
-  font-family: 'fontawesome-b';
-  font-style: normal;
-  font-weight: normal;
-  src: url("/src/webfonts/fa-brands-400.eot");
-  src: url("/src/webfonts/fa-brands-400.eot?#iefix") format("embedded-opentype"), url("/src/webfonts/fa-brands-400.woff2") format("woff2"), url("/src/webfonts/fa-brands-400.woff") format("woff"), url("/src/webfonts/fa-brands-400.ttf") format("truetype"), url("/src/webfonts/fa-brands-400.svg#fontawesome") format("svg"); }
-
-.fab {
-  font-family: 'fontawesome-b';
+.spacer-l {
+  height: 50px;
 }
 
 /*
