@@ -63,7 +63,6 @@ if(isset($pageArray[$getp])) {
 if($loginNav == 1) {
   $navItems = array(
     'stats' => 'Statistiken',
-    'pw' => 'Passwort ändern',
     'logout' => 'Logout'
   );
 } else {
