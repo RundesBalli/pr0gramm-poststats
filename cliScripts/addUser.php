@@ -1,50 +1,45 @@
 <?php
 /**
- * addUser.php
+ * cliScripts/addUser.php
  * 
- * Datei zum Anlegen eines Nutzeraccounts.
+ * Create an user account.
  * 
- * @param string $argv[1] Benutzername
- * @param string $argv[2] Passwort
+ * @param string $argv[1] Username
  */
 
 /**
- * Einbinden der Konfigurationsdatei sowie der Funktionsdatei
+ * Including the configuration and function loader.
  */
-require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR."inc".DIRECTORY_SEPARATOR."config.php");
-require_once(__DIR__.DIRECTORY_SEPARATOR."..".DIRECTORY_SEPARATOR."public".DIRECTORY_SEPARATOR."inc".DIRECTORY_SEPARATOR."functions.php");
+require_once(__DIR__.DIRECTORY_SEPARATOR.'loader.php');
 
 /**
- * Prüfen ob das Script in der Konsole läuft.
+ * Check if the script is running in the CLI.
  */
 if(php_sapi_name() != 'cli') {
   die("Das Script kann nur per Konsole ausgeführt werden.\n\n");
 }
 
 /**
- * Auslesen und verarbeiten des Nutzernamens.
+ * Read and process the user name.
  */
 if(isset($argv[1]) AND preg_match('/^[0-9a-zA-Z]{3,32}$/', defuse($argv[1]), $match) === 1) {
   $username = $match[0];
 } else {
-  die("Der Name ist ungültig. Er muss zwischen 3 und 32 Zeichen lang sein und darf keine Sonderzeichen enthalten (0-9a-zA-Z).\nBeispielaufruf:\nphp ".$argv[0]." Hans asdf123xyz456\nErstellt einen Nutzer \"Hans\" mit dem Passwort \"asdf123xyz456\".\n\n");
+  die("Der Name ist ungültig. Er muss zwischen 3 und 32 Zeichen lang sein und darf keine Sonderzeichen enthalten (0-9a-zA-Z).\nBeispielaufruf:\nphp ".$argv[0]." Hans\nErstellt einen Nutzer \"Hans\".\n\n");
 }
 
 /**
- * Auslesen und verarbeiten des Passworts.
+ * Generate a random password.
  */
-if(isset($argv[2]) AND preg_match('/^.{12,}$/', $argv[2], $match) === 1) {
-  $salt = hash('sha256', random_bytes(4096));
-  $password = password_hash($match[0].$salt, PASSWORD_DEFAULT);
-} else {
-  die("Das Passwort ist zu kurz. Es muss mindestens 12 Zeichen enthalten.\nBeispielaufruf:\nphp ".$argv[0]." Hans asdf123xyz456\nErstellt einen Nutzer \"Hans\" mit dem Passwort \"asdf123xyz456\".\n\n");
-}
+$passwordClear = hash('md5', random_bytes(4096));
+$salt = hash('sha256', random_bytes(4096));
+$password = password_hash($passwordClear.$salt, PASSWORD_DEFAULT);
 
 /**
- * Eintragen des neuen Nutzers.
+ * Insert the new user.
  */
 if(mysqli_query($dbl, "INSERT INTO `accounts` (`username`, `password`, `salt`) VALUES ('".$username."', '".$password."', '".$salt."')")) {
-  die("Account erfolgreich angelegt.\n\n");
+  die("Account erfolgreich angelegt.\n\nUser: ".$username."\nPass: ".$passwordClear."\n\n");
 } elseif(mysqli_errno($dbl) == 1062) {
   die("Es existiert bereits ein Account mit diesem Namen.\n\n");
 } else {
