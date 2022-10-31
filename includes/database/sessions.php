@@ -75,7 +75,7 @@ class sessions {
       return FALSE;
     }
 
-    if($result = mysqli_query($dbl, "SELECT `users`.`id` as `userId`, `users`.`username` as `username`, `users`.`lastApiSync` as `lastApiSync`, `users`.`lastPrinted` as `lastPrinted`, `sessions`.`id` as `sessionId`, `sessions`.`hash` as `hash` FROM `sessions` JOIN `users` ON `users`.`id`=`sessions`.`userId` WHERE `hash`='".defuse($match[0])."' LIMIT 1")) {
+    if($result = mysqli_query($dbl, "SELECT `users`.`id` as `userId`, `users`.`username` as `username`, `sessions`.`id` as `sessionId`, `sessions`.`hash` as `hash` FROM `sessions` JOIN `users` ON `users`.`id`=`sessions`.`userId` WHERE `hash`='".defuse($match[0])."' LIMIT 1")) {
       if(mysqli_num_rows($result) == 1) {
         return mysqli_fetch_assoc($result);
       } else {
