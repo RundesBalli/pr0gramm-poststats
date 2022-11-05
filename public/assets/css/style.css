@@ -150,8 +150,12 @@ h3 {
   font-style: italic;
 }
 
+.left {
+  text-align: left;
 }
 
+.right {
+  text-align: right;
 }
 
 
@@ -285,7 +289,7 @@ h3 {
  */
 [class*="col-"] {
   float: left;
-  padding: 5px 5px;
+  padding: calc(var(--fontSize) * 0.3) calc(var(--fontSize) * 0.6);
   border: 0;
 }
 
