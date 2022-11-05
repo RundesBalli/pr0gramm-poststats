@@ -24,7 +24,7 @@ https://github.com/RundesBalli/pr0gramm-poststats
     <div id="navbar" id="navbar">
       {NAV}
     </div>
-    <div id="wrapper">
+    <div id="content">
       {CONTENT}
     </div>
     <div id="footer">
