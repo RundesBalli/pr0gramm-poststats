@@ -35,7 +35,7 @@ if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['su
   /**
    * Check if there is an account with that username.
    */
-  $result = mysqli_query($dbl, "SELECT * FROM `accounts` WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
+  $result = mysqli_query($dbl, "SELECT * FROM `users` WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
   if(mysqli_num_rows($result) == 1) {
     /**
      * If the user exists, the password has to be verified.
