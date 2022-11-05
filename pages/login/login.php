@@ -49,7 +49,7 @@ if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['su
       $hash = sessions::generateHash();
 
       if(sessions::createSession($row['id'], $hash)) {
-        setcookie('stats', $hash, time()+(8*7*86400), NULL, NULL, TRUE, TRUE);
+        setcookie('stats', $hash, time()+SESSION_DURATION, NULL, NULL, TRUE, TRUE);
         header('Location: /stats');
         die();
       } else {
