@@ -150,16 +150,8 @@ h3 {
   font-style: italic;
 }
 
-.spacer-s {
-  height: calc(var(--fontSize) * 1);
 }
 
-.spacer-m {
-  height: calc(var(--fontSize) * 2);
-}
-
-.spacer-l {
-  height: calc(var(--fontSize) * 3);
 }
 
 

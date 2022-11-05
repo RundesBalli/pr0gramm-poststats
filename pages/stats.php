@@ -239,7 +239,6 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
       "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
       "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
       "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
-      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
       "</div>";
     }
 
@@ -258,7 +257,6 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
       "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
       "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
       "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
-      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
       "</div>";
     }
 
@@ -277,7 +275,6 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
       "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
       "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
       "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
-      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
       "</div>";
     }
 
@@ -296,7 +293,6 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
       "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
       "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
       "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
-      "<div class='col-s-0 col-l-0'><div class='spacer-s'></div></div>".
       "</div>";
     }
 
