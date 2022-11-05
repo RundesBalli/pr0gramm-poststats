@@ -174,6 +174,20 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      */
     $content.= "<h2>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a> von <a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></h2>";
     $title = "Auswertung - Post-ID ".$postId." von ".$user;
+    $content.= "<h3>Votes</h3>";
+    $content.= "<div class='row hover bordered'>".
+    "<div class='col-s-6 col-l-6 right'>Upvotes</div>".
+    "<div class='col-s-6 col-l-6 left'>".$up."</div>".
+    "</div>";
+    $content.= "<div class='row hover bordered left'>".
+    "<div class='col-s-6 col-l-6 right'>Downvotes</div>".
+    "<div class='col-s-6 col-l-6 left'>".$down."</div>".
+    "</div>";
+    $content.= "<div class='row hover bordered left'>".
+    "<div class='col-s-6 col-l-6 right'>Score</div>".
+    "<div class='col-s-6 col-l-6 left'>".($up-$down)."</div>".
+    "</div>";
+
     /**
      * Deletion of the old postdata
      */
