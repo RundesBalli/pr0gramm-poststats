@@ -16,7 +16,7 @@ $routes = [
   /**
    * Authentication and session
    */
-  'login' => 'login'.DIRECTORY_SEPARATOR.'redirect.php',
+  'login' => 'login'.DIRECTORY_SEPARATOR.'login.php',
   'logout' => 'login'.DIRECTORY_SEPARATOR.'logout.php',
 
   /**
