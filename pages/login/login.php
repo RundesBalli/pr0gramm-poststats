@@ -9,7 +9,7 @@ $title = "Login";
 /**
  * No cookie set or cookie is empty and form not submitted.
  */
-if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['submit'])) {
+if((!isset($_COOKIE[$cookieName]) OR empty($_COOKIE[$cookieName])) AND !isset($_POST['submit'])) {
   $content.= "<h1>Login</h1>";
   /**
    * Login form
@@ -27,7 +27,7 @@ if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['su
   "<div class='col-s-12 col-l-12'><input type='submit' name='submit' value='Einloggen' tabindex='3'></div>".
   "</div>";
   $content.= "</form>";
-} elseif((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND isset($_POST['submit'])) {
+} elseif((!isset($_COOKIE[$cookieName]) OR empty($_COOKIE[$cookieName])) AND isset($_POST['submit'])) {
   /**
    * Defusing the user input
    */
@@ -48,11 +48,11 @@ if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['su
       $hash = sessions::generateHash();
 
       if(sessions::createSession($row['id'], $hash)) {
-        setcookie('stats', $hash, time()+SESSION_DURATION, NULL, NULL, TRUE, TRUE);
+        setcookie($cookieName, $hash, time()+SESSION_DURATION, NULL, NULL, TRUE, TRUE);
         header('Location: /stats');
         die();
       } else {
-        setcookie('stats', NULL, 0, NULL, NULL, TRUE, TRUE);
+        setcookie($cookieName, NULL, 0, NULL, NULL, TRUE, TRUE);
         header('Location: /login');
         die();
       }

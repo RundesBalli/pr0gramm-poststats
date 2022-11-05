@@ -5,11 +5,11 @@
  * Checks if a valid cookie is set.
  */
 
-if(!empty($_COOKIE['stats'])) {
+if(!empty($_COOKIE[$cookieName])) {
   /**
    * Defuse cookie content and check if content is a sha256 hash.
    */
-  $hash = defuse($_COOKIE['stats']);
+  $hash = defuse($_COOKIE[$cookieName]);
   if(preg_match('/[a-f0-9]{64}/i', $hash, $match) === 1) {
     /**
      * Check if a session with the hash exists.
@@ -22,7 +22,7 @@ if(!empty($_COOKIE['stats'])) {
         /**
          * If the session timestamp couldn't be updated, the user will be logged out.
          */
-        setcookie('stats', NULL, 0, NULL, NULL, TRUE, TRUE);
+        setcookie($cookieName, NULL, 0, NULL, NULL, TRUE, TRUE);
         header("Location: /login");
         die();
       }
@@ -36,7 +36,7 @@ if(!empty($_COOKIE['stats'])) {
        * No session exists with the hash. The user will be logged out by removing the cookie and will be 
        * redirected to the login page.
        */
-      setcookie('stats', NULL, 0, NULL, NULL, TRUE, TRUE);
+      setcookie($cookieName, NULL, 0, NULL, NULL, TRUE, TRUE);
       header("Location: /login");
       die();
     }
@@ -44,7 +44,7 @@ if(!empty($_COOKIE['stats'])) {
     /**
      * If no valid sha256 hash is provided, the user is logged out by removing the cookie and redirecting to the login page.
      */
-    setcookie('stats', NULL, 0, NULL, NULL, TRUE, TRUE);
+    setcookie($cookieName, NULL, 0, NULL, NULL, TRUE, TRUE);
     header("Location: /login");
     die();
   }
