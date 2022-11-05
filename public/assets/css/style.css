@@ -109,20 +109,6 @@ a:active, a:hover, a:focus {
   margin: 10px 0;
 }
 
-.successbox {
-  background-color: rgba(91, 185, 28, 0.5); /* 5bb91c, 50% opacity */
-  border-left: 5px solid #5bb91c;
-  padding: 15px;
-  margin: 10px 0;
-}
-
-.infobox {
-  background-color: rgba(0, 143, 255, 0.5); /* 008fff, 50% opacity */
-  border-left: 5px solid #008fff;
-  padding: 15px;
-  margin: 10px 0;
-}
-
 h1, h2, h3 {
   word-break: break-word;
 }
