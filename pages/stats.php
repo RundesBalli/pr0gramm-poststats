@@ -138,23 +138,42 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
    * /stalk
    */
   if(preg_match('/(?:(?:http(?:s?):\/\/pr0gramm\.com)?\/(?:top|new|user\/\w+\/(?:uploads|likes)|stalk)(?:(?:\/\w+)?)\/)?([1-9]\d*)(?:(?::comment(?:\d+))?)?/i', $post, $match) === 1) {
-    mysqli_query($dbl, "UPDATE `users` SET `requestCount` = `requestCount`+1 WHERE `username`='".$username."'") OR DIE(MYSQLI_ERROR($dbl));
+    mysqli_query($dbl, "UPDATE `users` SET `requestCount` = `requestCount`+1 WHERE `id`='".$userRow['userId']."'") OR DIE(MYSQLI_ERROR($dbl));
     $postId = (int)defuse($match[1]);
-    $content.= "<div class='spacer-m'></div>";
-    $content.= "<h2>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a></h2>";
-    $title = "Auswertung - Post-ID ".$postId;
 
     /**
-     * Get post data from the pr0gramm API
+     * Include the apiCall (see Config).
      */
-    $response = pr0gramm::getItemInfo($postId);
+    require_once($apiCall);
 
-    if(isset($response['error']) AND $response['error'] === TRUE) {
-      $content.= "<h2>Fehler</h2>";
-      $content.= "<div class='warnbox'>Etwas ist schiefgelaufen.</div>";
-      return;
+    /**
+     * Get post data
+     */
+    $response = apiCall("https://pr0gramm.com/api/items/get?id=".$postId."&flags=15");
+    $validItem = FALSE;
+    foreach($response['items'] AS $value) {
+      if($value['id'] == $postId) {
+        $up = $value['up'];
+        $down = $value['down'];
+        $user = $value['user'];
+        $validItem = TRUE;
+        break;
+      }
     }
 
+    /**
+     * Check if the provided post exists.
+     */
+    if($validItem === FALSE) {
+      $content.= "<h2>Fehler</h2>";
+      $content.= "<div class='warnbox'>Der Post existiert nicht./div>";
+    }
+
+    /**
+     * Display the post data.
+     */
+    $content.= "<h2>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a> von <a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></h2>";
+    $title = "Auswertung - Post-ID ".$postId." von ".$user;
     /**
      * Deletion of the old postdata
      */

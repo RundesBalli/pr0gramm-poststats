@@ -34,6 +34,17 @@ $userAgent = "";
  */
 $cookieName = "";
 
+/**
+ * Location of the apiCall.
+ * Download: https://github.com/RundesBalli/pr0gramm-apiCall
+ * Will be included if necessary.
+ * 
+ * e.g.: /home/user/apiCall/apiCall.php
+ * 
+ * @var string
+ */
+$apiCall = "";
+
 
 /**
  * 
