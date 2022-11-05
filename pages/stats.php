@@ -189,6 +189,11 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
     "</div>";
 
     /**
+     * Get the comments and tags from the api
+     */
+    $response = apiCall("https://pr0gramm.com/api/items/info?itemId=".$postId);
+
+    /**
      * Deletion of the old postdata
      */
     mysqli_query($dbl, "DELETE FROM `tags` WHERE `postId`='".$postId."'") OR DIE(MYSQLI_ERROR($dbl));
