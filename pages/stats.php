@@ -1,26 +1,27 @@
 <?php
 /**
- * stats.php
+ * pages/stats.php
  * 
- * Statistikseite
+ * Stats page
  */
 
 /**
- * Einbinden der Cookieüberprüfung.
+ * Inclusion of the cookieCheck.
  */
-require_once('cookie.php');
+require_once(INCLUDE_DIR.'session'.DIRECTORY_SEPARATOR.'check.php');
+
 
 /**
- * Titel und Überschrift
+ * Title
  */
 $title = "Statistiken";
-$content.= "<h1>Übersicht</h1>";
+$content.= "<h1>Statistiken</h1>";
 
 /**
  * Allgemeine Infos und Links
  */
 $content.= "<div class='row'>".
-"<div class='col-s-12 col-l-12'>Eingeloggt als: <span class='warn bold'>".$username."</span></div>".
+"<div class='col-s-12 col-l-12'>Eingeloggt als: <span class='warn bold'>".$userRow['username']."</span></div>".
 "</div>";
 
 /**
@@ -31,19 +32,15 @@ $content.= "<div class='row'>".
 "</div>";
 
 /**
- * Formular zum Prüfen eines Posts
+ * Form to enter a to be checked post id
  */
-$content.= "<h1>Post prüfen</h1>";
+$content.= "<h2>Post prüfen</h2>";
 $content.= "<form action='/stats' method='post'>";
-$content.= "<div class='row hover bordered'>".
-"<div class='col-s-3 col-l-2'>Post</div>".
-"<div class='col-s-9 col-l-6'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".
-"<div class='col-s-12 col-l-4'>Die Post-ID oder jeder pr0gramm-Link der eine Post-ID enthält kann hier übergeben werden.</div>".
-"<div class='col-s-12 col-l-0'><div class='spacer-s'></div></div>".
+$content.= "<div class='row'>".
+"<div class='col-s-12 col-l-12'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".
 "</div>";
-$content.= "<div class='row hover bordered'>".
-"<div class='col-s-3 col-l-2'>Prüfen</div>".
-"<div class='col-s-9 col-l-10'><input type='submit' name='submit' value='Prüfen' tabindex='2'></div>".
+$content.= "<div class='row'>".
+"<div class='col-s-12 col-l-12'><input type='submit' name='submit' value='Prüfen' tabindex='2'></div>".
 "</div>";
 $content.= "</form>";
 
@@ -142,7 +139,7 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     mysqli_query($dbl, "UPDATE `accounts` SET `requestCount` = `requestCount`+1 WHERE `username`='".$username."'") OR DIE(MYSQLI_ERROR($dbl));
     $postId = (int)defuse($match[1]);
     $content.= "<div class='spacer-m'></div>";
-    $content.= "<h1>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a></h1>";
+    $content.= "<h2>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a></h2>";
     $title = "Auswertung - Post-ID ".$postId;
 
     /**
