@@ -15,17 +15,16 @@ if((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND !isset($_POST['su
    * Login form
    */
   $content.= "<form action='/login' method='post'>";
-  $content.= "<div class='row hover bordered'>".
-  "<div class='col-s-12 col-l-3'>Name</div>".
-  "<div class='col-s-12 col-l-9'><input type='text' name='username' placeholder='Name' autofocus tabindex='1'></div>".
+  $content.= "<div class='row'>".
+  "<div class='col-s-12 col-l-12'>Name</div>".
+  "<div class='col-s-12 col-l-12'><input type='text' name='username' placeholder='Name' autofocus tabindex='1'></div>".
   "</div>";
-  $content.= "<div class='row hover bordered'>".
-  "<div class='col-s-12 col-l-3'>Passwort</div>".
-  "<div class='col-s-12 col-l-9'><input type='password' name='password' placeholder='Passwort' tabindex='2'></div>".
+  $content.= "<div class='row'>".
+  "<div class='col-s-12 col-l-12'>Passwort</div>".
+  "<div class='col-s-12 col-l-12'><input type='password' name='password' placeholder='Passwort' tabindex='2'></div>".
   "</div>";
-  $content.= "<div class='row hover bordered'>".
-  "<div class='col-s-12 col-l-3'>Einloggen</div>".
-  "<div class='col-s-12 col-l-9'><input type='submit' name='submit' value='Einloggen' tabindex='3'></div>".
+  $content.= "<div class='row'>".
+  "<div class='col-s-12 col-l-12'><input type='submit' name='submit' value='Einloggen' tabindex='3'></div>".
   "</div>";
   $content.= "</form>";
 } elseif((!isset($_COOKIE['stats']) OR empty($_COOKIE['stats'])) AND isset($_POST['submit'])) {
