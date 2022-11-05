@@ -175,17 +175,17 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
     $content.= "<h2>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a> von <a href='https://pr0gramm.com/user/".$user."' rel='noopener' target='blank'>".$user."</a></h2>";
     $title = "Auswertung - Post-ID ".$postId." von ".$user;
     $content.= "<h3>Votes</h3>";
-    $content.= "<div class='row hover bordered'>".
+    $content.= "<div class='row hover bordered left'>".
     "<div class='col-s-6 col-l-6 right'>Upvotes</div>".
-    "<div class='col-s-6 col-l-6 left'>".$up."</div>".
+    "<div class='col-s-6 col-l-6'>".$up."</div>".
     "</div>";
     $content.= "<div class='row hover bordered left'>".
     "<div class='col-s-6 col-l-6 right'>Downvotes</div>".
-    "<div class='col-s-6 col-l-6 left'>".$down."</div>".
+    "<div class='col-s-6 col-l-6'>".$down."</div>".
     "</div>";
     $content.= "<div class='row hover bordered left'>".
     "<div class='col-s-6 col-l-6 right'>Score</div>".
-    "<div class='col-s-6 col-l-6 left'>".($up-$down)."</div>".
+    "<div class='col-s-6 col-l-6'>".($up-$down)."</div>".
     "</div>";
 
     /**
@@ -217,15 +217,15 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Tags by confidence
      */
     $content.= "<h3>Tags nach Confidence</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-4 col-l-2'>Confidence</div>".
-    "<div class='col-s-8 col-l-10'>Tag</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-4 col-l-6 right'>Confidence</div>".
+    "<div class='col-s-8 col-l-6'>Tag</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `tags` WHERE `postId`='".$postId."' ORDER BY `confidence` DESC") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-4 col-l-2".($row['confidence'] < 0.2 ? " warn" : "")."'>".$row['confidence']."</div>".
-      "<div class='col-s-8 col-l-10'>".$row['tag']."</div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-4 col-l-6 right".($row['confidence'] < 0.2 ? " warn" : "")."'>".$row['confidence']."</div>".
+      "<div class='col-s-8 col-l-6'>".$row['tag']."</div>".
       "</div>";
     }
 
@@ -233,17 +233,17 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Most popular comments sorted by benis descending
      */
     $content.= "<h3>Beliebteste Kommentare, sortiert nach Gesamtbenis</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-3 col-l-3'>ID</div>".
-    "<div class='col-s-3 col-l-3'>Benis</div>".
-    "<div class='col-s-6 col-l-6'>User</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-3 col-l-4 right'>ID</div>".
+    "<div class='col-s-3 col-l-4'>Benis</div>".
+    "<div class='col-s-6 col-l-4'>User</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `score` DESC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
-      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
-      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-3 col-l-4 right'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-4'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-4'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
       "</div>";
     }
 
@@ -251,17 +251,17 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Most disliked comments sorted by benis ascending
      */
     $content.= "<h3>Unbeliebteste Kommentare, sortiert nach Gesamtbenis</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-3 col-l-3'>ID</div>".
-    "<div class='col-s-3 col-l-3'>Benis</div>".
-    "<div class='col-s-6 col-l-6'>User</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-3 col-l-4 right'>ID</div>".
+    "<div class='col-s-3 col-l-4'>Benis</div>".
+    "<div class='col-s-6 col-l-4'>User</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `score` ASC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
-      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
-      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-3 col-l-4 right'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-4'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-4'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
       "</div>";
     }
 
@@ -269,17 +269,17 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Comments with the most upvotes
      */
     $content.= "<h3>Kommentare mit dem meisten Plus</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-3 col-l-3'>ID</div>".
-    "<div class='col-s-3 col-l-3'>Benis</div>".
-    "<div class='col-s-6 col-l-6'>User</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-3 col-l-4 right'>ID</div>".
+    "<div class='col-s-3 col-l-4'>Benis</div>".
+    "<div class='col-s-6 col-l-4'>User</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `up` DESC LIMIT 5") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
-      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
-      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-3 col-l-4 right'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-4'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-4'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
       "</div>";
     }
 
@@ -287,17 +287,17 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Comments with the most downvotes
      */
     $content.= "<h3>Kommentare mit dem meisten Minus</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-3 col-l-3'>ID</div>".
-    "<div class='col-s-3 col-l-3'>Benis</div>".
-    "<div class='col-s-6 col-l-6'>User</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-3 col-l-4 right'>ID</div>".
+    "<div class='col-s-3 col-l-4'>Benis</div>".
+    "<div class='col-s-6 col-l-4'>User</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `down` DESC LIMIT 5") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-3 col-l-3'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
-      "<div class='col-s-3 col-l-3'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
-      "<div class='col-s-6 col-l-6'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-3 col-l-4 right'><a href='https://pr0gramm.com/new/".$postId.":comment".$row['commentId']."' rel='noopener' target='blank'>".$row['commentId']."</a></div>".
+      "<div class='col-s-3 col-l-4'>".$row['score']." <span class='darken'>(".$row['up']."/".$row['down'].")</span></div>".
+      "<div class='col-s-6 col-l-4'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
       "</div>";
     }
 
@@ -305,15 +305,15 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Users with the most benis on comments under the post
      */
     $content.= "<h3>User mit dem meisten Benis auf Kommentare (in Summe)</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-6 col-l-3'>User</div>".
-    "<div class='col-s-6 col-l-9'>Benis</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-6 col-l-6 right'>User</div>".
+    "<div class='col-s-6 col-l-6'>Benis</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT sum(`score`) AS `totalBenis`, sum(`up`) AS `totalUp`, sum(`down`) AS `totalDown`, `username` FROM `comments` WHERE `postId`='".$postId."' GROUP BY `username` ORDER BY `totalBenis` DESC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-6 col-l-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
-      "<div class='col-s-6 col-l-9'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-6 col-l-6 right'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-6 col-l-6'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".
       "</div>";
     }
 
@@ -321,15 +321,15 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * User with the least benis on comments under the post
      */
     $content.= "<h3>User mit dem wenigsten Benis auf Kommentare (in Summe)</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-6 col-l-3'>User</div>".
-    "<div class='col-s-6 col-l-9'>Benis</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-6 col-l-6 right'>User</div>".
+    "<div class='col-s-6 col-l-6'>Benis</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT sum(`score`) AS `totalBenis`, sum(`up`) AS `totalUp`, sum(`down`) AS `totalDown`, `username` FROM `comments` WHERE `postId`='".$postId."' GROUP BY `username` ORDER BY `totalBenis` ASC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-6 col-l-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
-      "<div class='col-s-6 col-l-9'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-6 col-l-6 right'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-6 col-l-6'>".$row['totalBenis']." <span class='darken'>(".$row['totalUp']."/".$row['totalDown'].")</span></div>".
       "</div>";
     }
 
@@ -337,17 +337,23 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Show the users with the most comments (count)
      */
     $content.= "<h3>User mit den meisten Kommentaren (Anzahl)</h3>";
-    $content.= "<div class='row highlight bold bordered'>".
-    "<div class='col-s-6 col-l-3'>User</div>".
-    "<div class='col-s-6 col-l-9'>Anzahl Kommentare</div>".
+    $content.= "<div class='row highlight bold bordered left'>".
+    "<div class='col-s-6 col-l-6 right'>User</div>".
+    "<div class='col-s-6 col-l-6'>Anzahl Kommentare</div>".
     "</div>";
     $result = mysqli_query($dbl, "SELECT count(`username`) AS `totalCount`, `username` FROM `comments` WHERE `postId`='".$postId."' GROUP BY `username` ORDER BY `totalCount` DESC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
     while($row = mysqli_fetch_array($result)) {
-      $content.= "<div class='row hover bordered'>".
-      "<div class='col-s-6 col-l-3'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
-      "<div class='col-s-6 col-l-9'>".$row['totalCount']."</div>".
+      $content.= "<div class='row hover bordered left'>".
+      "<div class='col-s-6 col-l-6 right'><a href='https://pr0gramm.com/user/".$row['username']."' rel='noopener' target='blank'>".$row['username']."</a></div>".
+      "<div class='col-s-6 col-l-6'>".$row['totalCount']."</div>".
       "</div>";
     }
+
+    /**
+     * Deletion of the postdata
+     */
+    mysqli_query($dbl, "DELETE FROM `tags` WHERE `postId`='".$postId."'") OR DIE(MYSQLI_ERROR($dbl));
+    mysqli_query($dbl, "DELETE FROM `comments` WHERE `postId`='".$postId."'") OR DIE(MYSQLI_ERROR($dbl));
   } else {
     $content.= "<h2>Fehler</h2>";
     $content.= "<div class='warnbox'>Keine Post-ID erkennbar</div>";
