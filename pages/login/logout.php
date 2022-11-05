@@ -1,32 +1,67 @@
 <?php
 /**
- * logout.php
+ * pages/login/logout.php
  * 
- * Seite zum Löschen der Sitzung und um den Cookie zu leeren.
+ * Logout page.
  */
 
-if(isset($_COOKIE['stats']) AND !empty($_COOKIE['stats'])) {
+/**
+ * Inclusion of the cookieCheck.
+ */
+require_once(INCLUDE_DIR.'session'.DIRECTORY_SEPARATOR.'check.php');
+
+/**
+ * Title
+ */
+$title = 'Logout';
+$content.= "<h1>Logout</h1>";
+
+/**
+ * Display the form if it has not been submitted yet.
+ */
+if(!isset($_POST['submit'])) {
+  $content.= "<form action='/logout' method='post'>";
   /**
-   * Cookieinhalt entschärfen und prüfen ob Inhalt ein sha256-Hash ist.
+   * Session hash
    */
-  $sessionhash = defuse($_COOKIE['stats']);
-  if(preg_match('/[a-f0-9]{64}/i', $sessionhash, $match) === 1) {
-    /**
-     * Löschen der Sitzung, sofern existent.
-     */
-    mysqli_query($dbl, "DELETE FROM `sessions` WHERE `hash`='".$match[0]."'") OR DIE(MYSQLI_ERROR($dbl));
-  }
+  $content.= "<input type='hidden' name='token' value='".output($userRow['hash'])."'>";
   /**
-   * Entfernen des Cookies und Umleitung zur Loginseite.
+   * Choice
    */
-  setcookie('stats', NULL, 0);
-  header("Location: /login");
-  die();
-} else {
-  /**
-   * Wenn kein oder ein leerer Cookie übergeben wurde wird auf die Loginseite weitergeleitet.
-   */
-  header("Location: /login");
-  die();
+  $content.= "<div class='row'>".
+    "<div class='col-s-12 col-l-12'>Möchtest du dich ausloggen?</div>".
+    "<div class='col-s-12 col-l-12'><input type='submit' name='submit' value='Ja, ausloggen'></div>".
+    "<div class='col-s-12 col-l-12'><a href='/stats'>Nein, zurück</a></div>".
+  "</div>";
+  $content.= "</form>";
+  return;
 }
+
+/**
+ * Form has been submitted
+ */
+
+/**
+ * Session hash
+ */
+if($_POST['token'] != $userRow['hash']) {
+  http_response_code(403);
+  $content.= "<div class='warnbox'>Ungültige Anfrage</div>";
+  $content.= "<div class='row'>".
+    "<div class='col-s-12 col-l-12'><a href='/stats'>Zurück zur Übersicht</a></div>".
+  "</div>";
+  return;
+}
+
+/**
+ * Deletion of all sessions of the user.
+ */
+sessions::deleteSessionsByUserId($userRow['userId']);
+
+/**
+ * Removing the cookie and redirecting to the home page.
+ */
+setcookie($cookieName, NULL, 0, NULL, NULL, TRUE, TRUE);
+header("Location: /login");
+die();
 ?>
