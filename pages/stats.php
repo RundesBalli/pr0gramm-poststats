@@ -37,7 +37,7 @@ $content.= "<div class='row'>".
 $content.= "<h2>Post prüfen</h2>";
 $content.= "<form action='/stats' method='post'>";
 $content.= "<div class='row'>".
-"<div class='col-s-12 col-l-12'><input type='text' name='postId' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".
+"<div class='col-s-12 col-l-12'><input type='text' name='post' placeholder='Post-ID oder ganzer Link' autofocus tabindex='1' autocomplete='off'></div>".
 "</div>";
 $content.= "<div class='row'>".
 "<div class='col-s-12 col-l-12'><input type='submit' name='submit' value='Prüfen' tabindex='2'></div>".
@@ -45,16 +45,18 @@ $content.= "<div class='row'>".
 $content.= "</form>";
 
 /**
- * Postauswertung
+ * Post analysis
  */
-if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post']) AND !empty($_GET['post']))) {
+if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post']) AND !empty($_GET['post']))) {
   /**
-   * Abfangen ob das Formular übergeben wurde, oder ob ein Post per Bookmarklet übergeben wurde.
+   * Check if the form was passed or if a post id was passed via bookmarklet.
    */
-  if(isset($_POST['submit']) AND !empty($_POST['postId'])) {
-    $post = trim($_POST['postId']);
+  if(isset($_POST['submit']) AND !empty($_POST['post'])) {
+    $post = trim($_POST['post']);
   } elseif(isset($_GET['post']) AND !empty($_GET['post'])) {
     $post = trim($_GET['post']);
+  } else {
+    header("Location: /stats"); DIE();
   }
 
   /**
@@ -136,40 +138,45 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
    * /stalk
    */
   if(preg_match('/(?:(?:http(?:s?):\/\/pr0gramm\.com)?\/(?:top|new|user\/\w+\/(?:uploads|likes)|stalk)(?:(?:\/\w+)?)\/)?([1-9]\d*)(?:(?::comment(?:\d+))?)?/i', $post, $match) === 1) {
-    mysqli_query($dbl, "UPDATE `accounts` SET `requestCount` = `requestCount`+1 WHERE `username`='".$username."'") OR DIE(MYSQLI_ERROR($dbl));
+    mysqli_query($dbl, "UPDATE `users` SET `requestCount` = `requestCount`+1 WHERE `username`='".$username."'") OR DIE(MYSQLI_ERROR($dbl));
     $postId = (int)defuse($match[1]);
     $content.= "<div class='spacer-m'></div>";
     $content.= "<h2>Auswertung - Post-ID <a href='https://pr0gramm.com/new/".$postId."' rel='noopener' target='blank'>".$postId."</a></h2>";
     $title = "Auswertung - Post-ID ".$postId;
 
     /**
-     * Einbinden des apiCalls (siehe Config) und Abfragen der Tags und Kommentare bei der pr0gramm-API
+     * Get post data from the pr0gramm API
      */
-    require_once($apiCall);
-    $response = apiCall("https://pr0gramm.com/api/items/info?itemId=".$postId);
+    $response = pr0gramm::getItemInfo($postId);
+
+    if(isset($response['error']) AND $response['error'] === TRUE) {
+      $content.= "<h2>Fehler</h2>";
+      $content.= "<div class='warnbox'>Etwas ist schiefgelaufen.</div>";
+      return;
+    }
 
     /**
-     * Löschung der alten Daten
+     * Deletion of the old postdata
      */
     mysqli_query($dbl, "DELETE FROM `tags` WHERE `postId`='".$postId."'") OR DIE(MYSQLI_ERROR($dbl));
     mysqli_query($dbl, "DELETE FROM `comments` WHERE `postId`='".$postId."'") OR DIE(MYSQLI_ERROR($dbl));
 
     /**
-     * Einfügen der Tags in die Datenbank
+     * Inserting the tags into the database
      */
-    foreach($response['tags'] as $key => $value) {
+    foreach($response['tags'] as $value) {
       mysqli_query($dbl, "INSERT INTO `tags` (`postId`, `tag`, `confidence`) VALUES ('".$postId."', '".defuse($value['tag'])."', '".defuse($value['confidence'])."')") OR DIE(MYSQLI_ERROR($dbl));
     }
 
     /**
-     * Einfügen der Kommentare in die Datenbank
+     * Inserting the comments into the database
      */
-    foreach($response['comments'] as $key => $value) {
+    foreach($response['comments'] as $value) {
       mysqli_query($dbl, "INSERT INTO `comments` (`postId`, `commentId`, `score`, `up`, `down`, `username`) VALUES ('".$postId."', '".defuse($value['id'])."', '".defuse(($value['up']-$value['down']))."', '".defuse($value['up'])."', '".defuse($value['down'])."', '".defuse($value['name'])."')") OR DIE(MYSQLI_ERROR($dbl));
     }
 
     /**
-     * Tags nach Confidence
+     * Tags by confidence
      */
     $content.= "<h3>Tags nach Confidence</h3>";
     $content.= "<div class='row highlight bold bordered'>".
@@ -185,9 +192,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
 
     /**
-     * Anzeigen der beliebtesten Kommentare sortiert nach Benis absteigend
+     * Most popular comments sorted by benis descending
      */
-    $content.= "<div class='spacer-m'></div>";
     $content.= "<h3>Beliebteste Kommentare, sortiert nach Gesamtbenis</h3>";
     $content.= "<div class='row highlight bold bordered'>".
     "<div class='col-s-3 col-l-3'>ID</div>".
@@ -205,9 +211,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
 
     /**
-     * Anzeigen der unbeliebtesten Kommentare sortiert nach Benis aufsteigend
+     * Most disliked comments sorted by benis ascending
      */
-    $content.= "<div class='spacer-m'></div>";
     $content.= "<h3>Unbeliebteste Kommentare, sortiert nach Gesamtbenis</h3>";
     $content.= "<div class='row highlight bold bordered'>".
     "<div class='col-s-3 col-l-3'>ID</div>".
@@ -225,9 +230,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
 
     /**
-     * Anzeigen der Kommentare mit dem meisten Plus
+     * Comments with the most upvotes
      */
-    $content.= "<div class='spacer-m'></div>";
     $content.= "<h3>Kommentare mit dem meisten Plus</h3>";
     $content.= "<div class='row highlight bold bordered'>".
     "<div class='col-s-3 col-l-3'>ID</div>".
@@ -245,9 +249,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
 
     /**
-     * Anzeigen der Kommentare mit dem meisten Minus
+     * Comments with the most downvotes
      */
-    $content.= "<div class='spacer-m'></div>";
     $content.= "<h3>Kommentare mit dem meisten Minus</h3>";
     $content.= "<div class='row highlight bold bordered'>".
     "<div class='col-s-3 col-l-3'>ID</div>".
@@ -265,9 +268,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
 
     /**
-     * Anzeigen der User mit dem meisten Benis auf Kommentare unter dem Post
+     * Users with the most benis on comments under the post
      */
-    $content.= "<div class='spacer-m'></div>";
     $content.= "<h3>User mit dem meisten Benis auf Kommentare (in Summe)</h3>";
     $content.= "<div class='row highlight bold bordered'>".
     "<div class='col-s-6 col-l-3'>User</div>".
@@ -282,9 +284,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
 
     /**
-     * Anzeigen der User mit dem wenigsten Benis auf Kommentare unter dem Post
+     * User with the least benis on comments under the post
      */
-    $content.= "<div class='spacer-m'></div>";
     $content.= "<h3>User mit dem wenigsten Benis auf Kommentare (in Summe)</h3>";
     $content.= "<div class='row highlight bold bordered'>".
     "<div class='col-s-6 col-l-3'>User</div>".
@@ -299,9 +300,8 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
     }
 
     /**
-     * Anzeigen der User mit den meisten Kommentaren (Anzahl)
+     * Show the users with the most comments (count)
      */
-    $content.= "<div class='spacer-m'></div>";
     $content.= "<h3>User mit den meisten Kommentaren (Anzahl)</h3>";
     $content.= "<div class='row highlight bold bordered'>".
     "<div class='col-s-6 col-l-3'>User</div>".
@@ -315,8 +315,7 @@ if((isset($_POST['submit']) AND !empty($_POST['postId'])) OR (isset($_GET['post'
       "</div>";
     }
   } else {
-    $content.= "<div class='spacer-m'></div>";
-    $content.= "<h1>Fehler</h1>";
+    $content.= "<h2>Fehler</h2>";
     $content.= "<div class='warnbox'>Keine Post-ID erkennbar</div>";
   }
 }
