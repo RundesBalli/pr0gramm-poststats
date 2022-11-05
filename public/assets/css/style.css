@@ -7,10 +7,11 @@
  * Contents:
  * 1. General
  * 2. Header
- * 3. Footer
- * 4. Content
- * 5. Responsive grid
- * 6. Forms
+ * 3. Navigation
+ * 4. Footer
+ * 5. Content
+ * 6. Responsive grid
+ * 7. Forms
 */
 
 /**
@@ -161,6 +162,7 @@ h3 {
   height: calc(var(--fontSize) * 3);
 }
 
+
 /**
  * 2. Header
  */
@@ -170,108 +172,125 @@ h3 {
   margin: var(--fontSize) auto 0px;
 }
 
-}
 
-#header .info {
-  font-family: monospace;
-  font-size: 14px;
-}
-
-#header a {
-  color: #75c0c7;
-  text-decoration: none;
-}
-
-#header a:hover {
-  color: #f2f5f4;
-}
-
-/*
-  3. Navigation
-*/
-
-#nav {
-  width: 100%;
-  background-color: #212121;
-  overflow: hidden;
-  text-align: center;
-  position: sticky;
-  top: 0;
+/**
+ * 3. Navigation
+ */
+#navbar {
   flex: none;
+  text-align: center;
+  margin: var(--fontSize) auto;
+  width: 100%;
 }
 
-#nav a {
+#navbar div {
+  margin-bottom: calc(var(--fontSize) * 0.6);
+}
+
+#navbar a {
+  font-size: calc(var(--fontSize) * 1.25);
+  transition: all var(--transitionTime);
+  padding: calc(var(--fontSize) * 0.6) var(--fontSize);
+  margin: calc(var(--fontSize) * 0.3);
   display: inline-block;
-  color: #75c0c7;
-  padding: 14px 16px;
+  white-space: nowrap;
+  background-color: var(--hrColor);
+  border-radius: calc(var(--fontSize) * 0.25);
+  border: 1px solid var(--hrColor);
+  box-shadow: 1px 1px 1px 1px var(--shadowColor);
+}
+
+#navbar a:active, #navbar a:hover, #navbar a:focus {
+  color: var(--bgColor);
   text-decoration: none;
-  font-size: 17px;
+  background-color: var(--linkColor);
+  text-shadow: none;
 }
 
-#nav a:hover {
-  color: #f2f5f4;
+#navbar a.active {
+  font-weight: bold;
+  color: var(--bgColor);
+  background-color: var(--activeNavColor);
+  text-shadow: none;
 }
 
-#nav a.active {
-  background-color: #888888;
-  color: #161618;
-}
-
-#nav a.icon {
+#navbar > #toggleElement {
   display: none;
 }
 
-@media screen and (max-width: 600px) {
-  #nav a:not(:nth-child(2)) {
+@media only screen and (max-width: 600px) {
+  #navbar div:not(#toggleElement) {
     display: none;
   }
-  
-  #nav a.icon {
-    display: inline-block;
+
+  #navbar > div > a {
+    border-left: 0px;
   }
-  
-  #nav.responsive {
+
+  #navbar > div > a:not(:first-child):not(:nth-child(2)) {
+    border-left: 0px;
+  }
+
+  #navbar > #toggleElement, #navbar > #toggleElement > #toggle {
+    display: block;
+    margin: calc(var(--fontSize) * 0.3) 0px;
+  }
+
+  #navbar.responsive {
     position: relative;
   }
-  
-  #nav.responsive a {
-    display: inline-block;
+
+  #navbar.responsive div:not(#toggleElement) {
+    display: block;
   }
 }
 
-/*
-  4. Footer
-*/
 
+/**
+ * 4. Footer
+ */
 #footer {
   width: 100%;
-  background-color: #212121;
-  overflow: hidden;
   text-align: center;
-  flex: none;
-  padding: 5px 0px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  background-color: var(--bgColor);
+  padding: calc(var(--fontSize) * 0.3) 0px;
+  font-size: calc(var(--fontSize) * 0.65);
+  box-shadow: 0px -1px 6px var(--shadowColor);
 }
 
 #footer a {
-  color: #888888;
-  text-decoration: none;
+  display: inline-block;
+  padding: 0px 5px;
 }
 
-#footer a:hover {
-  color: #f2f5f4;
+#footer > div {
+  margin: 0px calc(var(--fontSize) * 0.6);
+  display: inline-block;
 }
 
-/*
-  5. Responsive grid
-*/
+#footer > div > a:not(:first-child) {
+  border-left: 1px solid var(--hrColor);
+}
 
-#wrapper {
+
+/**
+ * 5. Content
+ */
+#content {
   max-width: 1200px;
   width: 100%;
-  margin: 12px auto;
+  margin: 0px auto calc(var(--fontSize) * 3);
+  text-align: center;
   flex: auto;
 }
 
+
+/**
+ * 6. Responsive grid
+ */
 [class*="col-"] {
   float: left;
   padding: 5px 5px;
@@ -324,45 +343,45 @@ h3 {
   .col-l-12 {width: 100%;}
 }
 
-/*
-  6. Forms
-*/
 
-input[type=text], input[type=password], input[type=number], select, textarea {
-  width: 100%;
-  border: 1px solid #f2f5f4;
-  padding: 8px;
-  background-color: #161618;
-  color: #f2f5f4;
+/**
+ * 7. Forms
+ */
+input[type=text], input[type=password] {
+  width: 30%;
+  border: 1px solid var(--fontColor);
+  padding: calc(var(--fontSize) * 0.5);
+  background-color: transparent;
+  color: var(--fontColor);
+  box-shadow: 1px 1px 1px 1px var(--shadowColor);
 }
 
-textarea {
-  resize: none;
-  height: 120px;
+input[type=text]:focus, input[type=password]:focus {
+  border: 1px solid var(--linkColor);
 }
 
-input[type=text]:focus, input[type=password]:focus, input[type=number]:focus, select:focus, textarea:focus {
-  background-color: #212121;
-  border: 1px solid #ee4d2e;
-  outline-color: #ee4d2e
-}
-
-input[type=submit], input[type=reset], input[type=button] {
-  min-width: 30%;
+input[type=submit] {
+  width: 30%;
   cursor: pointer;
-  padding: 8px 12px;
-  background-color: #161618;
-  color: #f2f5f4;
-  border: 1px solid #f2f5f4;
+  padding: calc(var(--fontSize) * 0.5) calc(var(--fontSize) * 0.65);
+  background-color: transparent;
+  color: var(--fontColor);
+  border: 1px solid var(--fontColor);
+  box-shadow: 1px 1px 1px 1px var(--shadowColor);
 }
 
-input[type=submit]:hover, input[type=reset]:hover, input[type=button]:hover {
-  background-color: #212121;
-  border: 1px solid #ee4d2e;
-  outline-color: #ee4d2e
+input[type=submit]:hover {
+  border: 1px solid var(--linkColor);
 }
 
 label {
   display: inline-block;
-  color: #f2f5f4;
+  color: var(--fontColor);
+  margin-left: calc(var(--fontSize) * 0.65);
+}
+
+@media only screen and (max-width: 600px) {
+  input[type=text], input[type=password], input[type=submit] {
+    width: 100%;
+  }
 }
