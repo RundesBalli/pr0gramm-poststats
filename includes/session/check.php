@@ -30,6 +30,7 @@ if(!empty($_COOKIE['stats'])) {
        * Reload the userData via the session.
        */
       $userRow = sessions::getSessionData($match[0]);
+      $loginNav = TRUE;
     } else {
       /**
        * No session exists with the hash. The user will be logged out by removing the cookie and will be 
