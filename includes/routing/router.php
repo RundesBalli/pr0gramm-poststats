@@ -46,7 +46,7 @@ if(!empty($error)) {
      * No page was requested or the requested page doesn't match the pattern.
      * Redirection to the home page.
      */
-    header('Location: /start');
+    header('Location: /login');
     die();
   }
 }
