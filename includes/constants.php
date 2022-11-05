@@ -29,5 +29,5 @@ const PAGE_INCLUDE_DIR = INCLUDE_DIR."..".DIRECTORY_SEPARATOR."pages".DIRECTORY_
  * 
  * Validity time period of a new session or an existing session that is reused.
  */
-const SESSION_DURATION = 86400*30;
+const SESSION_DURATION = 86400*45;
 ?>
