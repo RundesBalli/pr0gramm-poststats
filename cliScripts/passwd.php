@@ -39,7 +39,7 @@ $password = password_hash($passwordClear.$salt, PASSWORD_DEFAULT);
 /**
  * Update the password.
  */
-mysqli_query($dbl, "UPDATE `accounts` SET `password`='".$password."', `salt`='".$salt."' WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
+mysqli_query($dbl, "UPDATE `users` SET `password`='".$password."', `salt`='".$salt."' WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
 if(mysqli_affected_rows($dbl) == 1) {
   die("Passwort erfolgreich geändert.\n\nUser: ".$username."\nPass: ".$passwordClear."\n\n");
 } else {

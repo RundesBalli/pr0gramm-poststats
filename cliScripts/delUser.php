@@ -31,7 +31,7 @@ if(isset($argv[1]) AND preg_match('/^[0-9a-zA-Z]{3,32}$/', defuse($argv[1]), $ma
 /**
  * Removing the account.
  */
-mysqli_query($dbl, "DELETE FROM `accounts` WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
+mysqli_query($dbl, "DELETE FROM `users` WHERE `username`='".$username."' LIMIT 1") OR DIE(MYSQLI_ERROR($dbl));
 if(mysqli_affected_rows($dbl) == 1) {
   die("Account erfolgreich entfernt.\n\n");
 } else {

@@ -38,7 +38,7 @@ $password = password_hash($passwordClear.$salt, PASSWORD_DEFAULT);
 /**
  * Insert the new user.
  */
-if(mysqli_query($dbl, "INSERT INTO `accounts` (`username`, `password`, `salt`) VALUES ('".$username."', '".$password."', '".$salt."')")) {
+if(mysqli_query($dbl, "INSERT INTO `users` (`username`, `password`, `salt`) VALUES ('".$username."', '".$password."', '".$salt."')")) {
   die("Account erfolgreich angelegt.\n\nUser: ".$username."\nPass: ".$passwordClear."\n\n");
 } elseif(mysqli_errno($dbl) == 1062) {
   die("Es existiert bereits ein Account mit diesem Namen.\n\n");
