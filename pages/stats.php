@@ -216,7 +216,7 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
     /**
      * Total tag and comment count
      */
-    $result = mysqli_query($dbl, "SELECT (SELECT COUNT(*) FROM `comments` WHERE `postId`=5486532) AS `commentCount`, (SELECT COUNT(*) FROM `tags` WHERE `postId`=5486532) AS `tagCount`") OR DIE(MYSQLI_ERROR($dbl));
+    $result = mysqli_query($dbl, "SELECT (SELECT COUNT(*) FROM `comments` WHERE `postId`=".$postId.") AS `commentCount`, (SELECT COUNT(*) FROM `tags` WHERE `postId`=".$postId.") AS `tagCount`") OR DIE(MYSQLI_ERROR($dbl));
     $row = mysqli_fetch_assoc($result);
     $content.= "<h3>Gesamtzahl</h3>";
     $content.= "<div class='row hover bordered left'>".
