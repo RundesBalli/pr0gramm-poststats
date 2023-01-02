@@ -214,10 +214,25 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
     }
 
     /**
+     * Total tag and comment count
+     */
+    $result = mysqli_query($dbl, "SELECT (SELECT COUNT(*) FROM `comments` WHERE `postId`=5486532) AS `commentCount`, (SELECT COUNT(*) FROM `tags` WHERE `postId`=5486532) AS `tagCount`") OR DIE(MYSQLI_ERROR($dbl));
+    $row = mysqli_fetch_assoc($result);
+    $content.= "<h3>Gesamtzahl</h3>";
+    $content.= "<div class='row hover bordered left'>".
+    "<div class='col-s-6 col-l-6 right'>Kommentare</div>".
+    "<div class='col-s-6 col-l-6'>".output($row['commentCount'])."</div>".
+    "</div>";
+    $content.= "<div class='row hover bordered left'>".
+    "<div class='col-s-6 col-l-6 right'>Tags</div>".
+    "<div class='col-s-6 col-l-6'>".output($row['tagCount'])."</div>".
+    "</div>";
+
+    /**
      * Tags by confidence
      */
     $result = mysqli_query($dbl, "SELECT * FROM `tags` WHERE `postId`='".$postId."' ORDER BY `confidence` DESC") OR DIE(MYSQLI_ERROR($dbl));
-    $content.= "<h3>Tags (".mysqli_num_rows($result).") nach Confidence</h3>";
+    $content.= "<h3>Tags nach Confidence</h3>";
     $content.= "<div class='row highlight bold bordered left'>".
     "<div class='col-s-4 col-l-6 right'>Confidence</div>".
     "<div class='col-s-8 col-l-6'>Tag</div>".
@@ -233,7 +248,7 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      * Most popular comments sorted by benis descending
      */
     $result = mysqli_query($dbl, "SELECT * FROM `comments` WHERE `postId`='".$postId."' ORDER BY `score` DESC LIMIT 15") OR DIE(MYSQLI_ERROR($dbl));
-    $content.= "<h3>Beliebteste Kommentare, sortiert nach Gesamtbenis (aus ".mysqli_num_rows($result)." Kommentaren)</h3>";
+    $content.= "<h3>Beliebteste Kommentare, sortiert nach Gesamtbenis</h3>";
     $content.= "<div class='row highlight bold bordered left'>".
     "<div class='col-s-3 col-l-4 right'>ID</div>".
     "<div class='col-s-3 col-l-4'>Benis</div>".
