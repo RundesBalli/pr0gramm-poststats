@@ -149,7 +149,7 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
     /**
      * Get post data
      */
-    $response = apiCall("https://pr0gramm.com/api/items/get?id=".$postId."&flags=15");
+    $response = apiCall("https://pr0gramm.com/api/items/get?id=".$postId."&flags=31");
     $validItem = FALSE;
     foreach($response['items'] AS $value) {
       if($value['id'] == $postId) {
@@ -166,7 +166,8 @@ if((isset($_POST['submit']) AND !empty($_POST['post'])) OR (isset($_GET['post'])
      */
     if($validItem === FALSE) {
       $content.= "<h2>Fehler</h2>";
-      $content.= "<div class='warnbox'>Der Post existiert nicht./div>";
+      $content.= "<div class='warnbox'>Der Post existiert nicht.</div>";
+      return;
     }
 
     /**
